@@ -91,7 +91,7 @@ Source oddities are preserved when practical. For example, the table prints `1:1
 
 These are `kind: theme`, `category: set-piece-theme`. Where the sampling table supplies a film, timestamp, cue number, and cue title, those are copied into `sampledStatementWork`, `sampledStatementTime`, `cueNumber`, and `cueName`. A name appearing in the prose-only “Notable” list does not get invented cue metadata.
 
-This file is thorough relative to what the catalogue *names*, but it is not presented as an exhaustive census of every one-scene musical idea. Lehman explicitly calls the table a small sampling and describes most cues as containing cue-specific material.
+This file is thorough relative to what the catalogue *names*, but it is not presented as an exhaustive census of every one-scene musical idea. Lehman explicitly calls the table a small sampling and describes most cues as containing cue-specific material. In other words, this extraction is exhaustive for the source's named list/table, not for all possible set-piece material in the scores.
 
 Some labels also exist elsewhere in the catalogue as incidental motifs or leitmotifs. That is not necessarily an extraction error. The catalogue says category boundaries can be blurry and can change through later repetition, tracking, and development. We preserve the source taxonomy rather than deduplicating across categories by name.
 
