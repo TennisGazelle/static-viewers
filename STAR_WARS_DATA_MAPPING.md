@@ -78,7 +78,7 @@ Fields used in this extraction:
 - `clearStatementWork` and `clearStatementTime`: the catalogue's **Clear Statement** columns.
 - `sourcePage`: PDF page containing the table row.
 
-`Clear Statement` is not renamed to `firstUsage`. The incidental-motif table does not claim these entries are first appearances. The graph edge is therefore a clear-statement relationship, not an introduction relationship.
+`Clear Statement` is not renamed to `firstUsage`. The incidental-motif table does not claim these entries are first appearances. The visible edge label is therefore `clear statement`. The current internal edge kind remains `first-clear-statement` from the first extraction commit; despite that legacy identifier, it must not be interpreted as evidence of first usage.
 
 Source oddities are preserved when practical. For example, the table prints `1:13:74` for Kylo Ren's Sawing Strings; the JSON does not silently repair the timestamp. Likewise `N/A` for the two unused TFA motifs is preserved with a null normalized time plus `clearStatementTimeRaw: "N/A"`.
 
