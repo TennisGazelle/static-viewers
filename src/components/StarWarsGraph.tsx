@@ -29,6 +29,7 @@ type GraphData = { nodes: GraphNode[]; links: GraphLink[] }
 
 const WIDTH = 1200
 const HEIGHT = 900
+const PADDING = 80
 
 const DATA_FILES = [
   '/data/star-wars-musical-themes.json',
@@ -163,14 +164,19 @@ function StarWarsGraph() {
   // Labels become unreadable line-noise once the catalogue-scale graph is loaded.
   const showLinkLabels = graph.nodes.length < 120
 
+  const xs = graph.nodes.map((node) => node.x ?? 0)
+  const ys = graph.nodes.map((node) => node.y ?? 0)
+  const minX = Math.min(...xs) - PADDING
+  const maxX = Math.max(...xs) + PADDING
+  const minY = Math.min(...ys) - PADDING
+  const maxY = Math.max(...ys) + PADDING
+
   return (
     <svg
-      width={WIDTH}
-      height={HEIGHT}
-      viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+      viewBox={`${minX} ${minY} ${maxX - minX} ${maxY - minY}`}
       role="img"
       aria-label="Graph of Star Wars works, leitmotifs, incidental motifs, and set-piece themes"
-      style={{ maxWidth: '100%', height: 'auto' }}
+      style={{ maxWidth: '100%', maxHeight: '85vh', width: '100%', height: 'auto' }}
     >
       <g>
         {graph.links.map((link, index) => {
@@ -218,7 +224,7 @@ function StarWarsGraph() {
         {graph.nodes.map((node) => (
           <g
             key={node.id}
-            transform={`translate(${node.x ?? WIDTH / 2}, ${node.y ?? HEIGHT / 2})`}
+            transform={`translate(${node.x ?? 0}, ${node.y ?? 0})`}
           >
             <circle r={22} fill={node.color} stroke="var(--bg)" strokeWidth={1.5} />
             <NodeIcon kind={node.kind} />
