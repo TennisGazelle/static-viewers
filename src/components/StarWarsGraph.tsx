@@ -16,6 +16,7 @@ interface GraphNode extends SimulationNodeDatum {
   label: string
   kind: NodeKind
   color: string
+  category?: string
 }
 
 type GraphLink = SimulationLinkDatum<GraphNode> & {
@@ -26,51 +27,68 @@ type GraphLink = SimulationLinkDatum<GraphNode> & {
 
 type GraphData = { nodes: GraphNode[]; links: GraphLink[] }
 
-const WIDTH = 760
-const HEIGHT = 520
+const WIDTH = 1200
+const HEIGHT = 900
+const PADDING = 80
+
+const DATA_FILES = [
+  '/data/star-wars-musical-themes.json',
+  '/data/star-wars-incidental-motifs-53-54.json',
+  '/data/star-wars-incidental-motifs-55-56.json',
+  '/data/star-wars-incidental-motifs-57-58.json',
+  '/data/star-wars-incidental-motifs-59-60.json',
+  '/data/star-wars-incidental-motifs-61-62.json',
+  '/data/star-wars-incidental-motifs-63-64.json',
+  '/data/star-wars-set-piece-themes.json',
+  '/data/star-wars-battle-of-hoth-motifs.json',
+]
+
+function linkEndpointId(endpoint: GraphLink['source']) {
+  return typeof endpoint === 'object' ? endpoint.id : String(endpoint)
+}
 
 function PersonIcon() {
   return (
-    <g fill="#fff" transform="translate(-10, -14)">
-      <circle cx="10" cy="6" r="6" />
-      <path d="M0 26 C0 15 20 15 20 26 Z" />
+    <g fill="#fff" transform="translate(-8, -11)">
+      <circle cx="8" cy="5" r="5" />
+      <path d="M0 21 C0 12 16 12 16 21 Z" />
     </g>
   )
 }
 
 function NoteIcon() {
   return (
-    <g fill="#fff" transform="translate(-9, -14)">
-      <circle cx="5" cy="23" r="5" />
-      <rect x="9" y="1" width="2.4" height="22" />
-      <path d="M9 1 L20.5 5 L20.5 11 L9 7 Z" />
+    <g fill="#fff" transform="translate(-7, -11)">
+      <circle cx="4" cy="18" r="4" />
+      <rect x="7" y="1" width="2" height="17" />
+      <path d="M7 1 L16 4 L16 9 L7 6 Z" />
     </g>
   )
 }
 
 function WorkIcon() {
   return (
-    <g fill="none" stroke="#fff" strokeWidth="2" transform="translate(-13, -13)">
-      <rect x="2" y="2" width="22" height="22" rx="2" />
-      <path d="M2 8 H24 M8 2 V8 M18 2 V8" />
+    <g fill="none" stroke="#fff" strokeWidth="1.7" transform="translate(-10, -10)">
+      <rect x="2" y="2" width="17" height="17" rx="2" />
+      <path d="M2 7 H19 M7 2 V7 M14 2 V7" />
     </g>
   )
 }
 
 function CueIcon() {
   return (
-    <g fill="none" stroke="#fff" strokeWidth="2" transform="translate(-14, -14)">
-      <path d="M3 5 H25 M3 10 H25 M3 15 H25 M3 20 H25" />
-      <path d="M9 3 V23 M19 3 V23" strokeOpacity="0.65" />
+    <g fill="none" stroke="#fff" strokeWidth="1.7" transform="translate(-11, -11)">
+      <path d="M3 4 H20 M3 8 H20 M3 12 H20 M3 16 H20" />
+      <path d="M8 2 V19 M15 2 V19" strokeOpacity="0.65" />
     </g>
   )
 }
 
 function OccurrenceIcon() {
   return (
-    <g fill="none" stroke="#fff" strokeWidth="2" transform="translate(-14, -14)">
-      <circle cx="14" cy="14" r="10" />
-      <path d="M14 8 V14 L19 17" />
+    <g fill="none" stroke="#fff" strokeWidth="1.7" transform="translate(-11, -11)">
+      <circle cx="11" cy="11" r="8" />
+      <path d="M11 6 V11 L15 14" />
     </g>
   )
 }
@@ -91,26 +109,41 @@ function StarWarsGraph() {
     let simulation: ReturnType<typeof forceSimulation<GraphNode>> | undefined
     let cancelled = false
 
-    fetch('/data/star-wars-musical-themes.json')
-      .then((response) => {
-        if (!response.ok) throw new Error(`Graph data returned ${response.status}`)
+    Promise.all(
+      DATA_FILES.map(async (path) => {
+        const response = await fetch(path)
+        if (!response.ok) throw new Error(`${path} returned ${response.status}`)
         return response.json() as Promise<GraphData>
-      })
-      .then((data) => {
+      }),
+    )
+      .then((parts) => {
         if (cancelled) return
-        const simulationNodes = data.nodes.map((node) => ({ ...node }))
-        const simulationLinks = data.links.map((link) => ({ ...link }))
+
+        const nodeMap = new Map<string, GraphNode>()
+        for (const node of parts.flatMap((part) => part.nodes)) {
+          nodeMap.set(node.id, node)
+        }
+
+        const linkMap = new Map<string, GraphLink>()
+        for (const link of parts.flatMap((part) => part.links)) {
+          const source = linkEndpointId(link.source)
+          const target = linkEndpointId(link.target)
+          linkMap.set(`${source}|${target}|${link.kind}|${link.label}`, link)
+        }
+
+        const simulationNodes = [...nodeMap.values()].map((node) => ({ ...node }))
+        const simulationLinks = [...linkMap.values()].map((link) => ({ ...link }))
 
         simulation = forceSimulation(simulationNodes)
           .force(
             'link',
             forceLink<GraphNode, GraphLink>(simulationLinks)
               .id((node) => node.id)
-              .distance(155),
+              .distance(90),
           )
-          .force('charge', forceManyBody().strength(-650))
+          .force('charge', forceManyBody().strength(-180))
           .force('center', forceCenter(WIDTH / 2, HEIGHT / 2))
-          .force('collide', forceCollide(58))
+          .force('collide', forceCollide(25))
           .on('tick', () => {
             setGraph({ nodes: [...simulationNodes], links: simulationLinks })
           })
@@ -128,14 +161,22 @@ function StarWarsGraph() {
   if (error) return <p>Could not load graph: {error}</p>
   if (graph.nodes.length === 0) return <p>Loading graph…</p>
 
+  // Labels become unreadable line-noise once the catalogue-scale graph is loaded.
+  const showLinkLabels = graph.nodes.length < 120
+
+  const xs = graph.nodes.map((node) => node.x ?? 0)
+  const ys = graph.nodes.map((node) => node.y ?? 0)
+  const minX = Math.min(...xs) - PADDING
+  const maxX = Math.max(...xs) + PADDING
+  const minY = Math.min(...ys) - PADDING
+  const maxY = Math.max(...ys) + PADDING
+
   return (
     <svg
-      width={WIDTH}
-      height={HEIGHT}
-      viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+      viewBox={`${minX} ${minY} ${maxX - minX} ${maxY - minY}`}
       role="img"
-      aria-label="Graph of Star Wars characters, musical themes, works, cues, and occurrences"
-      style={{ maxWidth: '100%', height: 'auto' }}
+      aria-label="Graph of Star Wars works, leitmotifs, incidental motifs, and set-piece themes"
+      style={{ maxWidth: '100%', maxHeight: '85vh', width: '100%', height: 'auto' }}
     >
       <g>
         {graph.links.map((link, index) => {
@@ -158,21 +199,23 @@ function StarWarsGraph() {
                 x2={target.x}
                 y2={target.y}
                 stroke="currentColor"
-                strokeOpacity={0.2 + link.confidence * 0.45}
-                strokeWidth={1 + link.confidence}
+                strokeOpacity={0.12 + link.confidence * 0.32}
+                strokeWidth={0.6 + link.confidence}
                 strokeDasharray={link.confidence < 0.7 ? '5 5' : undefined}
               />
-              <text
-                x={midX}
-                y={midY}
-                textAnchor="middle"
-                fontSize={11}
-                fill="currentColor"
-                opacity={0.9}
-                style={{ paintOrder: 'stroke', stroke: 'var(--bg)', strokeWidth: 4 }}
-              >
-                {link.label}
-              </text>
+              {showLinkLabels && (
+                <text
+                  x={midX}
+                  y={midY}
+                  textAnchor="middle"
+                  fontSize={9}
+                  fill="currentColor"
+                  opacity={0.9}
+                  style={{ paintOrder: 'stroke', stroke: 'var(--bg)', strokeWidth: 4 }}
+                >
+                  {link.label}
+                </text>
+              )}
             </g>
           )
         })}
@@ -181,15 +224,15 @@ function StarWarsGraph() {
         {graph.nodes.map((node) => (
           <g
             key={node.id}
-            transform={`translate(${node.x ?? WIDTH / 2}, ${node.y ?? HEIGHT / 2})`}
+            transform={`translate(${node.x ?? 0}, ${node.y ?? 0})`}
           >
-            <circle r={34} fill={node.color} stroke="var(--bg)" strokeWidth={2} />
+            <circle r={22} fill={node.color} stroke="var(--bg)" strokeWidth={1.5} />
             <NodeIcon kind={node.kind} />
-            <text y={50} textAnchor="middle" fontSize={13} fill="currentColor">
+            <text y={34} textAnchor="middle" fontSize={9} fill="currentColor">
               {node.label}
             </text>
-            <text y={65} textAnchor="middle" fontSize={10} fill="currentColor" opacity={0.55}>
-              {node.kind}
+            <text y={45} textAnchor="middle" fontSize={7} fill="currentColor" opacity={0.5}>
+              {node.category ?? node.kind}
             </text>
           </g>
         ))}
