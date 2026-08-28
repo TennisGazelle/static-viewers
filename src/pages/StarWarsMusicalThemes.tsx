@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import StarWarsGraph from '../components/StarWarsGraph'
 
 function StarWarsMusicalThemes() {
   return (
@@ -7,7 +8,7 @@ function StarWarsMusicalThemes() {
         <Link to="/">&larr; Home</Link>
       </p>
       <h1>Star Wars Musical Themes</h1>
-      <p>Coming soon.</p>
+      <StarWarsGraph />
     </main>
   )
 }
