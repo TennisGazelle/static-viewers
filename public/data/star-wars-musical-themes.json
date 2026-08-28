@@ -1,0 +1,18 @@
+{
+  "nodes": [
+    { "id": "anakin", "label": "Anakin Skywalker", "kind": "character", "color": "#3a6ea5" },
+    { "id": "vader", "label": "Darth Vader", "kind": "character", "color": "#1c1c1c" },
+    { "id": "imperial-march", "label": "Imperial March", "kind": "theme", "color": "#6b3fa0" },
+    { "id": "empire-strikes-back", "label": "The Empire Strikes Back", "kind": "work", "color": "#8b5e3c" },
+    { "id": "cloud-city-cue", "label": "Cloud City cue", "kind": "cue", "color": "#2f7d6d" },
+    { "id": "vader-arrival", "label": "Vader arrives", "kind": "occurrence", "color": "#9a4f55" }
+  ],
+  "links": [
+    { "source": "anakin", "target": "vader", "label": "becomes", "kind": "transformation", "confidence": 1 },
+    { "source": "vader", "target": "imperial-march", "label": "leitmotif", "kind": "association", "confidence": 1 },
+    { "source": "empire-strikes-back", "target": "cloud-city-cue", "label": "contains", "kind": "containment", "confidence": 1 },
+    { "source": "cloud-city-cue", "target": "vader-arrival", "label": "scores", "kind": "occurrence", "confidence": 1 },
+    { "source": "vader-arrival", "target": "imperial-march", "label": "states", "kind": "theme-occurrence", "confidence": 0.8 },
+    { "source": "anakin", "target": "imperial-march", "label": "foreshadows", "kind": "thematic-relationship", "confidence": 0.55 }
+  ]
+}
