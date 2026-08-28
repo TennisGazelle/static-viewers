@@ -1,0 +1,38 @@
+---
+description: Centralized rules for static-viewers — DRY, architecture conventions, no-assumptions policy, model policy, doc sync, licensing
+alwaysApply: true
+---
+
+# Rules (canonical)
+
+Single source of truth for project rules. Do **not** copy this text into harness stubs (`CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`, `AGENTS.md`) — link here instead.
+
+## DRY
+
+- One source of truth per fact, in code and in docs.
+- Graph topology (nodes/links/labels) lives only in `public/data/*.json`, fetched at runtime — never hardcode a graph's data inside its component.
+- A node `kind` → icon/color mapping lives only in the component that owns that graph (e.g. `NodeIcon` in `StarWarsGraph.tsx`).
+
+## Architecture (as applied in this repo)
+
+- Vite + React + TypeScript. Client-side routing via `react-router-dom`'s `<BrowserRouter>`, mounted once in `src/main.tsx`.
+- One route = one file in `src/pages/`, wired into the `<Routes>` table in `src/App.tsx`. Link every new page from `src/pages/Home.tsx`.
+- Non-trivial render logic for a page lives in its own component under `src/components/`, not inlined in the page file.
+- Graph pages follow the fetch → d3-force → React-renders-from-state pattern documented in [`docs/ai/architecture.md`](../../docs/ai/architecture.md#graphs). d3 computes layout only; it never touches the DOM directly.
+- See [`docs/ai/architecture.md`](../../docs/ai/architecture.md) for the full file map and the icon convention.
+
+## No-assumptions policy
+
+Verify every fact against the actual code or config before relying on it — don't assume a library's default behavior or a file's contents. When a change has more than one reasonable design (e.g. a new route's URL shape, a new node `kind`), ask the user during planning rather than guessing.
+
+## Model policy
+
+Plan or design a non-trivial change on a high-capability, high-reasoning model; execute the approved plan at moderate reasoning effort. For a small, unambiguous fix this can collapse into a single pass.
+
+## Docs updated in the same change
+
+Update the relevant file(s) under `docs/ai/` (and this file, if a rule changed) in the **same commit or PR** as the code they describe — not as a follow-up.
+
+## Licensing
+
+This repo is licensed **CC BY-NC 4.0** (see [`LICENSE`](../../LICENSE)): non-commercial, attribution required. Any bundled asset (icon, font, dataset, image) must be compatible with that — original work, public domain, or a license that itself permits non-commercial redistribution with attribution. Do not source character art or photos from fan wikis (e.g. Wookieepedia) or other sites hosting copyrighted, non-freely-licensed media — draw an original inline SVG glyph instead.
