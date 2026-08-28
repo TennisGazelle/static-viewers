@@ -160,6 +160,7 @@ function StarWarsGraph() {
   if (error) return <p>Could not load graph: {error}</p>
   if (graph.nodes.length === 0) return <p>Loading graph…</p>
 
+  // Labels become unreadable line-noise once the catalogue-scale graph is loaded.
   const showLinkLabels = graph.nodes.length < 120
 
   return (
