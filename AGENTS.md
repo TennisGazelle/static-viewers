@@ -21,7 +21,8 @@ React + Vite SPA hosting standalone viewer pages. Read this file, then the **one
 |--------------------|------|----------------|
 | Adding/editing a viewer page or route | [`docs/ai/architecture.md`](docs/ai/architecture.md#routing) | `src/pages/`, `src/App.tsx` |
 | Graph rendering / d3-force layout | [`docs/ai/architecture.md`](docs/ai/architecture.md#graphs) | `src/components/*Graph.tsx` |
-| Graph data (nodes, links, confidence) | [`docs/ai/architecture.md`](docs/ai/architecture.md#graphs) | `public/data/*.json` |
+| Graph data shape/rendering (nodes, links, confidence, dedup) | [`docs/ai/architecture.md`](docs/ai/architecture.md#graphs) | `public/data/*.json` |
+| Star Wars catalogue data *content* (which theme, taxonomy, source page) | [`STAR_WARS_DATA_MAPPING.md`](STAR_WARS_DATA_MAPPING.md) | `public/data/star-wars-*.json` |
 | Node icons | [`docs/ai/architecture.md`](docs/ai/architecture.md#icons) | inline SVG components in the owning `*Graph.tsx` |
 | Repo-wide conventions, licensing, model policy | [`.cursor/rules/rules.mdc`](.cursor/rules/rules.mdc) | — |
 
@@ -42,3 +43,4 @@ After updating the submodule, rerun `./.agents/ai-skills/scripts/install-into-re
 
 - Architecture / file map: [`docs/ai/architecture.md`](docs/ai/architecture.md)
 - Rules: [`.cursor/rules/rules.mdc`](.cursor/rules/rules.mdc)
+- Star Wars catalogue data provenance: [`STAR_WARS_DATA_MAPPING.md`](STAR_WARS_DATA_MAPPING.md)
