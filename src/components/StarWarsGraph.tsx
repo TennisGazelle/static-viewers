@@ -42,6 +42,10 @@ const DATA_FILES = [
   '/data/star-wars-battle-of-hoth-motifs.json',
 ]
 
+function linkEndpointId(endpoint: GraphLink['source']) {
+  return typeof endpoint === 'object' ? endpoint.id : String(endpoint)
+}
+
 function PersonIcon() {
   return (
     <g fill="#fff" transform="translate(-8, -11)">
@@ -121,8 +125,8 @@ function StarWarsGraph() {
 
         const linkMap = new Map<string, GraphLink>()
         for (const link of parts.flatMap((part) => part.links)) {
-          const source = typeof link.source === 'string' ? link.source : link.source.id
-          const target = typeof link.target === 'string' ? link.target : link.target.id
+          const source = linkEndpointId(link.source)
+          const target = linkEndpointId(link.target)
           linkMap.set(`${source}|${target}|${link.kind}|${link.label}`, link)
         }
 
