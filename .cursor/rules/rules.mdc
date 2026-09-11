@@ -11,15 +11,15 @@ Single source of truth for project rules. Do **not** copy this text into harness
 
 - One source of truth per fact, in code and in docs.
 - Graph topology (nodes/links/labels) lives only in `public/data/*.json`, fetched at runtime — never hardcode a graph's data inside its component.
-- A node `kind` → icon/color mapping lives only in the component that owns that graph (e.g. `NodeIcon` in `StarWarsGraph.tsx`).
+- A node visual type → color/size mapping lives only in the component that owns that graph (for example, `TYPE_CONFIG` in `StarWarsGraph.tsx`).
 
 ## Architecture (as applied in this repo)
 
 - Vite + React + TypeScript. Client-side routing via `react-router-dom`'s `<BrowserRouter>`, mounted once in `src/main.tsx`.
 - One route = one file in `src/pages/`, wired into the `<Routes>` table in `src/App.tsx`. Link every new page from `src/pages/Home.tsx`.
 - Non-trivial render logic for a page lives in its own component under `src/components/`, not inlined in the page file.
-- Graph pages follow the fetch → d3-force → React-renders-from-state pattern documented in [`docs/ai/architecture.md`](../../docs/ai/architecture.md#graphs). d3 computes layout only; it never touches the DOM directly.
-- See [`docs/ai/architecture.md`](../../docs/ai/architecture.md) for the full file map and the icon convention.
+- Graph pages follow the fetch → merge → D3 component lifecycle documented in [`docs/ai/architecture.md`](../../docs/ai/architecture.md#graphs). React owns application state and surrounding UI; D3 owns the SVG graph layer, force simulation, zoom, and drag behavior inside an effect with cleanup.
+- See [`docs/ai/architecture.md`](../../docs/ai/architecture.md) for the full file map and graph conventions.
 
 ## No-assumptions policy
 
