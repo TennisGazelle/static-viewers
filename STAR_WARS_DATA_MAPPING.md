@@ -24,7 +24,7 @@ The goal is not to reinterpret the catalogue. The JSON should preserve Lehman's 
 | 82–86 | Concert Arrangements | Deferred. Likely work/arrangement nodes connected to the thematic material they contain. |
 | 87 | End Credits | Deferred. |
 | 89–98 | Cue Lists | Deferred. These should populate `cue` nodes and later occurrence edges/nodes. |
-| 99–102 | Thematic Census | Used for `statementTotal` on parent leitmotifs and separable child components when the census supplies a component-level count. |
+| 99–102 | Thematic Census | `statementTotal` on themes/components plus per-film family counts in `star-wars-census-subjects.json`; the renderer expands those compact records into weighted graph edges. |
 | 103–106 | Bibliography / citation / fair use | Provenance only; not graph data. |
 
 ## Data files loaded by the viewer
@@ -42,6 +42,7 @@ The graph renderer merges these source-aligned files at runtime:
 - `star-wars-set-piece-themes.json`
 - `star-wars-battle-of-hoth-motifs.json`
 - `star-wars-thematic-relationships.json`
+- `star-wars-census-subjects.json`
 
 The shards are deliberate. They keep a large hardcoded transcription reviewable against bounded source regions rather than creating one opaque mega-file.
 
@@ -49,7 +50,7 @@ The shards are deliberate. They keep a large hardcoded transcription reviewable 
 
 ### Works
 
-The nine Skywalker Saga films plus Rogue One, Solo, Galaxy's Edge, and Obi-Wan Kenobi are `kind: work` nodes. Roman-numeral `Used In` codes from the PDF are retained in motif metadata rather than expanded into every possible work-to-theme edge.
+The nine Skywalker Saga films plus Rogue One, Solo, Galaxy's Edge, and Obi-Wan Kenobi are `kind: work` nodes. Roman-numeral `Used In` codes remain on motif metadata. Appendix 3's numeric Skywalker Saga census is also represented as compact `census` records and expanded at runtime into `used-in-count` edges carrying `statementCount` and `sourcePage`.
 
 ### Parent leitmotifs
 
@@ -128,6 +129,28 @@ The Battle of Hoth case study is represented as:
 - `set-hoth-a` through `set-hoth-z`: all 26 lettered components;
 - parent-to-component edges;
 - cue number/name, listed statement times, compact source-derived summary, and source page.
+
+### Semantic subjects
+
+`star-wars-census-subjects.json` adds `kind: subject` nodes for characters, factions, places, objects, concepts, species, events, spacecraft, and relationships that the catalogue explicitly says a theme represents or signifies. The deliberately broad `subject` kind replaces the earlier assumption that every semantic anchor would be a character.
+
+Each subject carries a finer `category`, a compact catalogue-grounded `description`, and `sourcePage`. A `represents` edge connects it only to themes for which the prose makes a defensible association. Semantic drift remains visible as multiple edges: Rebel Fanfare connects to both the Rebel Alliance / Resistance and the Millennium Falcon, while Vader connects to the ANH Imperials family and the later Imperial March.
+
+These descriptions paraphrase the source. They are not a claim that a theme has one fixed meaning.
+
+### Per-film thematic census
+
+The `census` array holds one record for each of the 62 parent Skywalker Saga leitmotif families:
+
+- `themeId`: existing parent-family node;
+- `counts`: non-zero per-film statement counts keyed by Roman numeral;
+- `catalogueTotal`: the total printed by Appendix 3;
+- `sourcePage`: 101 or 102;
+- optional `note` for a source inconsistency.
+
+Component rows are summed to the parent family because the force graph needs one comparable film-to-family layer and Appendix 3 sometimes combines components (for example `6b/c` and `47b/c`). Individual component totals remain on component nodes when the catalogue supplies them.
+
+The published Descent family total is 7, while its visible per-film cells sum to 8. Both are preserved: `catalogueTotal` remains 7 and the component-derived per-film counts remain II: 2, III: 6. Do not silently force one to agree with the other.
 
 ## Thematic relationship extraction
 
@@ -234,7 +257,7 @@ The largest remaining source-grounded passes are now:
 1. Add source-music nodes from pp. 80–81.
 2. Add concert-arrangement and end-credit nodes from pp. 82–87.
 3. Add cue nodes from pp. 89–98, then model theme occurrences separately from theme identity.
-4. Expand individual theme/motif descriptions and musical features where useful to the viewer, still without attempting notation representation.
+4. Expand individual theme/motif descriptions and structured musical features where useful to the viewer, still without attempting notation representation.
 5. Revisit direct cross-theme references scattered through the individual leitmotif and incidental-motif descriptions if a denser relationship network is desired.
 
 ## Provenance note
