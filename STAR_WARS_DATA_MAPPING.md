@@ -152,6 +152,8 @@ Component rows are summed to the parent family because the force graph needs one
 
 The published Descent family total is 7, while its visible per-film cells sum to 8. Both are preserved: `catalogueTotal` remains 7 and the component-derived per-film counts remain II: 2, III: 6. Do not silently force one to agree with the other.
 
+The table's printed **Totals Per Film** row also disagrees with the sum of its visible motif cells in several columns. The JSON preserves the individual cells because they are the evidence behind each weighted edge; it does not alter those cells to force agreement with the footer. The cell sums are I–IX: `95, 69, 101, 107, 183, 185, 168, 267, 215`, while the printed footer reads `95, 69, 100, 107, 182, 180, 167, 267, 216`.
+
 ## Thematic relationship extraction
 
 `star-wars-thematic-relationships.json` treats analysis itself as graphable data. Analysis nodes use `kind: analysis`, with the small connected-triangle SVG glyph in the viewer.
