@@ -335,10 +335,13 @@ function GraphTable({
                 <tbody>
                   {groupNodes.map((node) => {
                     const links = linksByNode.get(node.id) ?? []
-                    const related = links
-                      .map((link) => endpointId(link.source) === node.id ? endpointId(link.target) : endpointId(link.source))
-                      .map((id) => nodeById.get(id))
-                      .filter((candidate): candidate is GraphNode => Boolean(candidate))
+                    const related = [...new Map(
+                      links
+                        .map((link) => endpointId(link.source) === node.id ? endpointId(link.target) : endpointId(link.source))
+                        .map((id) => nodeById.get(id))
+                        .filter((candidate): candidate is GraphNode => Boolean(candidate))
+                        .map((candidate) => [candidate.id, candidate]),
+                    ).values()]
                     const isActive = node.id === activeNodeId
                     return (
                       <tr
@@ -548,7 +551,9 @@ function StarWarsGraph() {
       node.attr('transform', (datum) => 'translate(' + (datum.x ?? 0) + ',' + (datum.y ?? 0) + ')')
     })
 
-    return () => simulation.stop()
+    return () => {
+      simulation.stop()
+    }
   }, [height, visibleData, width])
 
   useEffect(() => {
