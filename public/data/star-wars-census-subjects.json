@@ -36,7 +36,10 @@
       101,
       102
     ],
-    "description": "Semantic subjects explicitly described in the catalogue and per-film thematic census counts aggregated to the 62 parent leitmotif families."
+    "description": "Semantic subjects explicitly described in the catalogue and per-film thematic census counts aggregated to the 62 parent leitmotif families.",
+    "cellSumsPerFilm": { "I": 95, "II": 69, "III": 101, "IV": 107, "V": 183, "VI": 185, "VII": 168, "VIII": 267, "IX": 215 },
+    "publishedTotalsPerFilm": { "I": 95, "II": 69, "III": 100, "IV": 107, "V": 182, "VI": 180, "VII": 167, "VIII": 267, "IX": 216 },
+    "totalsNote": "The source's printed totals disagree with the sum of its visible motif cells in several columns; both are preserved without forcing agreement."
   },
   "nodes": [
     {
