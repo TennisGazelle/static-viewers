@@ -9,7 +9,7 @@ import {
 } from 'd3'
 import { useEffect, useState } from 'react'
 
-type NodeKind = 'character' | 'theme' | 'work' | 'cue' | 'occurrence'
+type NodeKind = 'character' | 'theme' | 'work' | 'cue' | 'occurrence' | 'analysis'
 
 interface GraphNode extends SimulationNodeDatum {
   id: string
@@ -33,6 +33,7 @@ const PADDING = 80
 
 const DATA_FILES = [
   '/data/star-wars-musical-themes.json',
+  '/data/star-wars-leitmotif-components.json',
   '/data/star-wars-incidental-motifs-53-54.json',
   '/data/star-wars-incidental-motifs-55-56.json',
   '/data/star-wars-incidental-motifs-57-58.json',
@@ -41,6 +42,7 @@ const DATA_FILES = [
   '/data/star-wars-incidental-motifs-63-64.json',
   '/data/star-wars-set-piece-themes.json',
   '/data/star-wars-battle-of-hoth-motifs.json',
+  '/data/star-wars-thematic-relationships.json',
 ]
 
 function linkEndpointId(endpoint: GraphLink['source']) {
@@ -93,11 +95,23 @@ function OccurrenceIcon() {
   )
 }
 
+function AnalysisIcon() {
+  return (
+    <g fill="none" stroke="#fff" strokeWidth="1.6" transform="translate(-11, -11)">
+      <circle cx="5" cy="5" r="3" />
+      <circle cx="17" cy="6" r="3" />
+      <circle cx="11" cy="17" r="3" />
+      <path d="M7.5 6 L14 6 M6.5 7.5 L9.5 14.5 M15.5 8.5 L12.5 14.5" />
+    </g>
+  )
+}
+
 function NodeIcon({ kind }: { kind: NodeKind }) {
   if (kind === 'theme') return <NoteIcon />
   if (kind === 'work') return <WorkIcon />
   if (kind === 'cue') return <CueIcon />
   if (kind === 'occurrence') return <OccurrenceIcon />
+  if (kind === 'analysis') return <AnalysisIcon />
   return <PersonIcon />
 }
 
@@ -139,11 +153,11 @@ function StarWarsGraph() {
             'link',
             forceLink<GraphNode, GraphLink>(simulationLinks)
               .id((node) => node.id)
-              .distance(90),
+              .distance((link) => link.kind === 'component' ? 46 : 88),
           )
-          .force('charge', forceManyBody().strength(-180))
+          .force('charge', forceManyBody().strength(-155))
           .force('center', forceCenter(WIDTH / 2, HEIGHT / 2))
-          .force('collide', forceCollide(25))
+          .force('collide', forceCollide(23))
           .on('tick', () => {
             setGraph({ nodes: [...simulationNodes], links: simulationLinks })
           })
@@ -175,7 +189,7 @@ function StarWarsGraph() {
     <svg
       viewBox={`${minX} ${minY} ${maxX - minX} ${maxY - minY}`}
       role="img"
-      aria-label="Graph of Star Wars works, leitmotifs, incidental motifs, and set-piece themes"
+      aria-label="Graph of Star Wars works, leitmotifs, leitmotif components, incidental motifs, set-piece themes, and analytical relationships"
       style={{ maxWidth: '100%', maxHeight: '85vh', width: '100%', height: 'auto' }}
     >
       <g>
