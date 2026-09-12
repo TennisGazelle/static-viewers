@@ -6,13 +6,25 @@ import {
   templateExtend,
 } from '@gitgraph/react'
 import { useCallback, useState } from 'react'
-import type { GitgraphUserApi } from '@gitgraph/core'
+import type { GitgraphUserApi, BranchUserApi } from '@gitgraph/core'
 import type { ReactElement } from 'react'
 
 type PlotGitgraph = GitgraphUserApi<ReactElement<SVGElement>>
+type PlotBranch = BranchUserApi<ReactElement<SVGElement>>
 type GraphSettings = {
   orientation: Orientation
 }
+
+/** Fission family = warm amber (colour timeline). Fusion family = cool steel (B&W). */
+const BRANCH_COLOR = {
+  master: '#c9b8a4',
+  fission: '#e8913a',
+  cambridge: '#f0a85c',
+  europe: '#d47828',
+  berkeley: '#f5c078',
+  fusion: '#7a8ba8',
+  ias: '#a0b0c8',
+} as const
 
 const initialGraphSettings: GraphSettings = {
   orientation: Orientation.VerticalReverse,
@@ -20,70 +32,167 @@ const initialGraphSettings: GraphSettings = {
 
 const baseGraphOptions = {
   template: templateExtend(TemplateName.Metro, {
+    colors: Object.values(BRANCH_COLOR),
     commit: {
       message: {
         displayAuthor: false,
+        color: '#e8dcc8',
+        font: 'normal 13px system-ui, sans-serif',
+      },
+      dot: {
+        size: 10,
       },
     },
+    branch: {
+      lineWidth: 6,
+      spacing: 46,
+      label: {
+        display: true,
+        color: '#1a120c',
+        strokeColor: 'transparent',
+        bgColor: '#e8dcc8',
+        font: 'bold 11px system-ui, sans-serif',
+      },
+    },
+    tag: {
+      color: '#1a120c',
+      bgColor: '#d4c4a8',
+      strokeColor: 'transparent',
+      font: 'normal 11px system-ui, sans-serif',
+    },
   }),
+}
+
+function branchWithColor(
+  parent: PlotGitgraph | PlotBranch,
+  name: string,
+  color: string,
+): PlotBranch {
+  return parent.branch({
+    name,
+    style: { color },
+    commitDefaultOptions: {
+      style: {
+        color,
+        message: { color },
+        dot: { color },
+      },
+    },
+  })
 }
 
 function buildOppenheimerPlot(gitgraph: PlotGitgraph) {
   // React StrictMode may replay this callback in dev, so rebuild from scratch.
   gitgraph.clear()
 
-  const master = gitgraph.branch('master')
-  master.commit('movie starts')
-  master.commit('Swirl visuals and text about Prometheus')
+  // Commits are issued in movie order across branches (intercuts), not
+  // branch-by-branch. Flashbacks merge back into the hearing that opened them.
 
-  const fission = master.branch('fission')
+  const master = branchWithColor(gitgraph, 'master', BRANCH_COLOR.master)
+  master.commit('Prometheus: fire of a thousand suns, stamping; Oppie opens his eyes')
+
+  const fission = branchWithColor(master, 'fission', BRANCH_COLOR.fission)
   fission
-    .commit('older oppenheimer speaks a statement into the record')
-    .tag('colored, INT, small room, 1954')
+    .commit('Oppenheimer begins reading his statement into the record')
+    .tag('colour, INT, Room 2022, 1954')
+  // .tag('first instance of "we\'re not judges"')
 
-  const fusion = master.branch('fusion')
+  const fusion = branchWithColor(master, 'fusion', BRANCH_COLOR.fusion)
   fusion
-    .commit('strauss is talking to legislative aide about congressional hearing')
-    .tag('black and white, INT, small meeting room, 1959')
-    .commit('Strauss says Oppenheimer testified three days; hearing took a month; "who\'d want to justify their whole life?"')
-    // .tag('first instance of "who\'d want to justify their whole life?"')
-    .commit('Strauss brought to committee room to commence the hearing')
-    .tag('INT Grand Congressional Room')
-    // .tag('first instance of "this is not a trial"')
-  
-  const cambridge = fission.branch('fission-cambridge')
+    .commit(
+      'Strauss and aide: three-day testimony, month-long hearing; "who\'d want to justify their whole life?"',
+    )
+    .tag('B&W, INT, Senate office, 1959')
+  // .tag('first instance of "who\'d want to justify their whole life?"')
+  fusion
+    .commit('Corridor to committee; flashbulbs as Strauss enters')
+    .tag('B&W, INT, Senate committee room, 1959')
+  // .tag('first instance of "this is not a trial"')
+
+  fission.commit(
+    'Robb: why leave the US? Cambridge under Blackett; were you happier there?',
+  )
+
+  const cambridge = branchWithColor(
+    fission,
+    'fission-cambridge',
+    BRANCH_COLOR.cambridge,
+  )
   cambridge
-    .commit('Oppenheimer is asked if he was happier in Cambridge than the US')
-    .tag('Young Oppenheimer in England, mid-1920s')
-    .commit('Cool atom visuals, anxiety while him in bed, etc.')
-    .tag('MONTAGE')
-    .commit('Oppenheimer chastised by teacher for breaking glasses, he says he wants to go to lecture, is shot down by professor')
-    .commit('Oppenheimer poisons apple.')
-    .commit('more visuals and anxieties; brief forward flash visual of him in tent in Los Alamos')
-    .tag('MONTAGE')
-    .commit('Bell Tolls, he realizes gag with apple is too far')
-    .commit('Meets Niels Bohr, saves him from apple, is told to study under Born and that Algebra is like sheet music')
-    .commit('Oppenheimer looks at art and more atom visuals; landscapes with classes; throwing glass at the wall, atomic visuals now complete')
-    .tag('MONTAGE')
-  
-  fusion.merge(cambridge)
+    .commit('Young Oppie in bed: particle visions, homesick, hidden universe')
+    .tag('colour, INT, Cambridge, mid-1920s')
+  cambridge.commit(
+    'Blackett lab: denied Bohr lecture; injects cyanide into the apple',
+  )
+  cambridge.commit('Sneaks into Bohr lecture; raises hand with a question')
 
-  fusion
-    .commit('Strauss asked when he met Oppenheimer, establishes he was comissioner of the AEC, says he met him at IAS')
-  
-  const ias = fusion.branch('ias')
+  fusion.commit(
+    'McGee: relationship with Oppenheimer; met 1947 as AEC commissioner / IAS board',
+  )
+
+  const ias = branchWithColor(fusion, 'fusion-ias', BRANCH_COLOR.ias)
   ias
-    .commit('Oppenheimer meets Strauss at the Institute for Advanced Study')
-    .tag('black and white, EXT, Institute, 1947')
-    .commit('Strauss says where the commute is')
-    .commit('Strauss corrects his pronunciation, says he was a self made man, so was Oppenheimer\'s dad')
-    .commit("They see Einstein, discuss how much they've already known him, and progress since his time.")
-    .tag('INT, Institute')
-    .commit("Oppenheimer, 'Strauss was a lowly shoe salesman.'; Strauss, 'No, just a shoe salesman'")
+    .commit("Meets Oppie at IAS; corrects 'straws'; commute comes with the house")
+    .tag('B&W, EXT/INT, Institute for Advanced Study, 1947')
+  ias.commit(
+    "Self-made man / father was one; Einstein at the pond; shoe salesman; Oppie walks to Einstein as hat blows",
+  )
 
+  fission.commit('Continues statement: struggled to visualize the new world')
 
+  cambridge.commit(
+    'Panic: Los Alamos apple insert; grabs poisoned apple from Bohr; Göttingen under Born; algebra like sheet music',
+  )
+  cambridge
+    .commit(
+      'Göttingen montage: art, Stravinsky, Waste Land, smashing glass, waves',
+    )
+    .tag('MONTAGE')
 
-  master.merge(fission).merge(fusion).tag('end of movie')
+  fission.merge(cambridge)
+
+  ias.commit(
+    'Einstein ignores Strauss; past associations; job is yours; "with a great commute"',
+  )
+
+  fusion.merge(ias)
+
+  fusion.commit(
+    'Senate: concerned what he said to Einstein; "we all know what happened later"',
+  )
+
+  fission.commit('After Göttingen… Leiden in Holland')
+
+  const europe = branchWithColor(fission, 'fission-europe', BRANCH_COLOR.europe)
+  europe
+    .commit('Lectures in Dutch; meets Isidor Rabi')
+    .tag('colour, INT, Leiden, late 1920s')
+  europe.commit(
+    'Train to Zurich: Dutch in six weeks; schvitzer; seek out Heisenberg',
+  )
+  europe.commit(
+    'Zurich: meets Heisenberg; New Mexico canyons; "go home, cowboys"',
+  )
+
+  fission.merge(europe)
+
+  fission.commit(
+    'Paths crossed; Robb: any Russians?; appointments at Caltech and Berkeley',
+  )
+
+  const berkeley = branchWithColor(
+    fission,
+    'fission-berkeley',
+    BRANCH_COLOR.berkeley,
+  )
+  berkeley
+    .commit(
+      'Meets Lawrence at the rad lab; theory next door; first pupil Lomanitz',
+    )
+    .tag('colour, INT/EXT, Berkeley, early 1930s')
+  berkeley.commit(
+    'Class fills; dissolve years later; stellar-collapse lecture with Snyder',
+  )
 }
 
 function OppenheimerPlotMap() {
@@ -100,34 +209,75 @@ function OppenheimerPlotMap() {
   )
 
   return (
-    <main>
-      <p>
-        <Link to="/">&larr; Home</Link>
-      </p>
-      <h1>Oppenheimer Plot Map</h1>
-      <section>
-        <select
-          id="orientation"
-          value={settings.orientation}
-          onChange={(event) =>
-            handleOptionsChange({
-              orientation: event.currentTarget.value as Orientation,
-            })
-          }
-        >
-          {Object.values(Orientation).map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+    <main className="viewer-page oppenheimer-page">
+      <header className="viewer-hero">
+        <Link className="back-link" to="/">
+          &larr; Static viewers
+        </Link>
+        <p className="eyebrow">Nolan screenplay · fission / fusion timelines</p>
+        <h1>Oppenheimer plot map</h1>
+        <p className="viewer-deck">
+          A git-style map of the film&apos;s interleaved hearings and flashbacks.
+          Warm amber is fission (colour); cool steel is fusion (black-and-white).
+        </p>
+      </header>
+
+      <div className="plot-legend" aria-hidden="true">
+        <span>
+          <i style={{ background: BRANCH_COLOR.fission, color: BRANCH_COLOR.fission }} />
+          Fission
+        </span>
+        <span>
+          <i style={{ background: BRANCH_COLOR.cambridge, color: BRANCH_COLOR.cambridge }} />
+          Cambridge
+        </span>
+        <span>
+          <i style={{ background: BRANCH_COLOR.europe, color: BRANCH_COLOR.europe }} />
+          Europe
+        </span>
+        <span>
+          <i style={{ background: BRANCH_COLOR.berkeley, color: BRANCH_COLOR.berkeley }} />
+          Berkeley
+        </span>
+        <span>
+          <i style={{ background: BRANCH_COLOR.fusion, color: BRANCH_COLOR.fusion }} />
+          Fusion
+        </span>
+        <span>
+          <i style={{ background: BRANCH_COLOR.ias, color: BRANCH_COLOR.ias }} />
+          IAS
+        </span>
+      </div>
+
+      <section className="viewer-toolbar">
+        <label htmlFor="orientation">
+          Orientation
+          <select
+            id="orientation"
+            value={settings.orientation}
+            onChange={(event) =>
+              handleOptionsChange({
+                orientation: event.currentTarget.value as Orientation,
+              })
+            }
+          >
+            {Object.values(Orientation).map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </label>
       </section>
-      <Gitgraph
-        key={JSON.stringify(settings)}
-        options={{ ...baseGraphOptions, ...settings }}
-      >
-        {buildOppenheimerPlot}
-      </Gitgraph>
+
+      <div className="plot-stage">
+        <Gitgraph
+          key={JSON.stringify(settings)}
+          options={{ ...baseGraphOptions, ...settings }}
+        >
+          {buildOppenheimerPlot}
+        </Gitgraph>
+      </div>
     </main>
   )
 }
