@@ -111,18 +111,18 @@ const TYPE_CONFIG: Record<NodeType, TypeConfig> = {
 }
 
 const DATA_FILES = [
-  '/data/star-wars-musical-themes.json',
-  '/data/star-wars-leitmotif-components.json',
-  '/data/star-wars-incidental-motifs-53-54.json',
-  '/data/star-wars-incidental-motifs-55-56.json',
-  '/data/star-wars-incidental-motifs-57-58.json',
-  '/data/star-wars-incidental-motifs-59-60.json',
-  '/data/star-wars-incidental-motifs-61-62.json',
-  '/data/star-wars-incidental-motifs-63-64.json',
-  '/data/star-wars-set-piece-themes.json',
-  '/data/star-wars-battle-of-hoth-motifs.json',
-  '/data/star-wars-thematic-relationships.json',
-  '/data/star-wars-census-subjects.json',
+  'data/star-wars-musical-themes.json',
+  'data/star-wars-leitmotif-components.json',
+  'data/star-wars-incidental-motifs-53-54.json',
+  'data/star-wars-incidental-motifs-55-56.json',
+  'data/star-wars-incidental-motifs-57-58.json',
+  'data/star-wars-incidental-motifs-59-60.json',
+  'data/star-wars-incidental-motifs-61-62.json',
+  'data/star-wars-incidental-motifs-63-64.json',
+  'data/star-wars-set-piece-themes.json',
+  'data/star-wars-battle-of-hoth-motifs.json',
+  'data/star-wars-thematic-relationships.json',
+  'data/star-wars-census-subjects.json',
 ]
 
 const EPISODE_IDS: Record<string, string> = {
@@ -412,7 +412,7 @@ function StarWarsGraph() {
     let cancelled = false
     Promise.all(
       DATA_FILES.map(async (path) => {
-        const response = await fetch(path)
+        const response = await fetch(import.meta.env.BASE_URL + path)
         if (!response.ok) throw new Error(path + ' returned ' + response.status)
         return response.json() as Promise<GraphData>
       }),
