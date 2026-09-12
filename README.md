@@ -2,10 +2,12 @@
 
 A React + Vite single-page app hosting a couple of standalone viewer pages.
 
+**Live site:** https://tennisgazelle.github.io/static-viewers/
+
 ## Pages
 
-- `/star-wars-musical-themes`
-- `/oppenheimer-plot-map`
+- [`/star-wars-musical-themes`](https://tennisgazelle.github.io/static-viewers/star-wars-musical-themes)
+- [`/oppenheimer-plot-map`](https://tennisgazelle.github.io/static-viewers/oppenheimer-plot-map)
 
 The home page (`/`) just lists links to both.
 
