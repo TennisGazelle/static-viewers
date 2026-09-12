@@ -24,6 +24,7 @@ React + Vite SPA hosting standalone viewer pages. Read this file, then the **one
 | Graph data shape/rendering (nodes, links, confidence, dedup) | [`docs/ai/architecture.md`](docs/ai/architecture.md#graphs) | `public/data/*.json` |
 | Star Wars catalogue data *content* (which theme, taxonomy, source page) | [`STAR_WARS_DATA_MAPPING.md`](STAR_WARS_DATA_MAPPING.md) | `public/data/star-wars-*.json` |
 | Node icons | [`docs/ai/architecture.md`](docs/ai/architecture.md#icons) | inline SVG components in the owning `*Graph.tsx` |
+| Source PDFs / reference material | — | `docs/reference/` |
 | Repo-wide conventions, licensing, model policy | [`.cursor/rules/rules.mdc`](.cursor/rules/rules.mdc) | — |
 
 ## Skills

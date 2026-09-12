@@ -39,25 +39,22 @@ function buildOppenheimerPlot(gitgraph: PlotGitgraph) {
   const fission = master.branch('fission')
   fission
     .commit('older oppenheimer speaks a statement into the record')
-    .tag('colored, INT, small room, early 1940s')
+    .tag('colored, INT, small room, 1954')
 
   const fusion = master.branch('fusion')
   fusion
     .commit('strauss is talking to legislative aide about congressional hearing')
-    .tag('black and white, INT, small meeting room, early 1950s')
-    .commit('Strauss asked about Oppenheimer Trial, says "Gosh that was so long ago, exactly 5 years ago."')
+    .tag('black and white, INT, small meeting room, 1959')
+    .commit('Strauss says Oppenheimer testified three days; hearing took a month; "who\'d want to justify their whole life?"')
     // .tag('first instance of "who\'d want to justify their whole life?"')
-    .commit("Strauss brought to courtroom to commence the hearing")
+    .commit('Strauss brought to committee room to commence the hearing')
     .tag('INT Grand Congressional Room')
     // .tag('first instance of "this is not a trial"')
-  
-  fission
-    .commit('Oppenheimer is asked if he was happier in Cambridge than the US')
   
   const cambridge = fission.branch('fission-cambridge')
   cambridge
     .commit('Oppenheimer is asked if he was happier in Cambridge than the US')
-    .tag('Young Oppenheimer in England, early 1910s')
+    .tag('Young Oppenheimer in England, mid-1920s')
     .commit('Cool atom visuals, anxiety while him in bed, etc.')
     .tag('MONTAGE')
     .commit('Oppenheimer chastised by teacher for breaking glasses, he says he wants to go to lecture, is shot down by professor')
@@ -65,7 +62,7 @@ function buildOppenheimerPlot(gitgraph: PlotGitgraph) {
     .commit('more visuals and anxieties; brief forward flash visual of him in tent in Los Alamos')
     .tag('MONTAGE')
     .commit('Bell Tolls, he realizes gag with apple is too far')
-    .commit('Meets Neil Bohr, saves him from apple, is told to study in Borne and that Algebra is like sheet music')
+    .commit('Meets Niels Bohr, saves him from apple, is told to study under Born and that Algebra is like sheet music')
     .commit('Oppenheimer looks at art and more atom visuals; landscapes with classes; throwing glass at the wall, atomic visuals now complete')
     .tag('MONTAGE')
   
@@ -76,13 +73,13 @@ function buildOppenheimerPlot(gitgraph: PlotGitgraph) {
   
   const ias = fusion.branch('ias')
   ias
-    .commit('Oppenheimer meets Strauss at brownstone in the IAS')
-    .tag('black and white, EXT, brownstone, early 1950s')
+    .commit('Oppenheimer meets Strauss at the Institute for Advanced Study')
+    .tag('black and white, EXT, Institute, 1947')
     .commit('Strauss says where the commute is')
     .commit('Strauss corrects his pronunciation, says he was a self made man, so was Oppenheimer\'s dad')
     .commit("They see Einstein, discuss how much they've already known him, and progress since his time.")
-    .tag('INT, brownstone')
-    .commit("Oppenheimer, 'Strauss was a lowly shoe salesman.'; Strauss, 'No, just a salesman'")
+    .tag('INT, Institute')
+    .commit("Oppenheimer, 'Strauss was a lowly shoe salesman.'; Strauss, 'No, just a shoe salesman'")
 
 
 

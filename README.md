@@ -21,7 +21,7 @@ The data is split into source-aligned JSON files rather than one giant graph fix
 
 The set-piece section itself is a sampling rather than a claim to enumerate every cue-specific idea in the scores. Likewise, numeric relationship confidence values are visualization weights; Lehman's categorical wording remains authoritative.
 
-The repository currently stores the hardcoded transcription rather than a copy of the PDF itself. If the PDF is added later, keep the mapping document pointed at the exact revision date because the catalogue is continually revised.
+The source PDF lives in [`docs/reference/`](./docs/reference/) alongside the Oppenheimer screenplay. Keep the mapping document pointed at the exact revision date because the catalogue is continually revised.
 
 ## License
 

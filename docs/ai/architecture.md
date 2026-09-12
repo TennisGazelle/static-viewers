@@ -14,6 +14,7 @@
 | [`src/components/StarWarsGraph.tsx`](../../src/components/StarWarsGraph.tsx) | Observable-style D3 force graph, controls, and coordinated catalogue tables | Graph layout, interactions, visual type mappings, table columns, or loaded data shards |
 | [`public/data/star-wars-*.json`](../../public/data) (12 shards — see `DATA_FILES` in `StarWarsGraph.tsx`) | Graph topology and catalogue-derived records, fetched and merged at runtime | Adding/editing nodes, links, census counts, or confidence values. For *what* to add/how it maps to the source catalogue, see [`STAR_WARS_DATA_MAPPING.md`](../../STAR_WARS_DATA_MAPPING.md) |
 | [`src/index.css`](../../src/index.css) | Global base styles plus viewer-scoped layouts | Site-wide styles or Star Wars explorer presentation |
+| [`docs/reference/`](../../docs/reference/) | Source PDFs (Oppenheimer screenplay, Star Wars catalogue) | Adding reference material |
 
 ## Routing
 
