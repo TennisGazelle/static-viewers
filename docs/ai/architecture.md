@@ -6,19 +6,25 @@
 
 | File | Role | Change here when… |
 |------|------|--------------------|
-| [`src/main.tsx`](../../src/main.tsx) | React root; mounts `<BrowserRouter>` | Changing router type or adding a global provider |
-| [`src/App.tsx`](../../src/App.tsx) | Route table (`<Routes>`) | Adding, removing, or renaming a page's route |
+| [`src/main.tsx`](../../src/main.tsx) | React root; applies the initial theme and mounts `<BrowserRouter>` | Changing startup behavior, router type, or adding a global provider |
+| [`src/App.tsx`](../../src/App.tsx) | Route table and global theme control | Adding, removing, or renaming a page's route, or changing the app shell |
+| [`src/theme.ts`](../../src/theme.ts) | Light/dark preference initialization, application, and persistence | Changing theme behavior or storage |
+| [`src/components/ThemeToggle.tsx`](../../src/components/ThemeToggle.tsx) | Persistent light/dark toggle | Changing the theme control's behavior or label |
 | [`src/pages/Home.tsx`](../../src/pages/Home.tsx) | Landing page; links to every viewer page | Adding a new viewer page (link it here too) |
 | [`src/pages/StarWarsMusicalThemes.tsx`](../../src/pages/StarWarsMusicalThemes.tsx) | Star Wars viewer page | That page's layout/copy |
 | [`src/pages/OppenheimerPlotMap.tsx`](../../src/pages/OppenheimerPlotMap.tsx) | Oppenheimer viewer page | That page's layout/copy |
 | [`src/components/StarWarsGraph.tsx`](../../src/components/StarWarsGraph.tsx) | Observable-style D3 force graph, controls, and coordinated catalogue tables | Graph layout, interactions, visual type mappings, table columns, or loaded data shards |
 | [`public/data/star-wars-*.json`](../../public/data) (12 shards — see `DATA_FILES` in `StarWarsGraph.tsx`) | Graph topology and catalogue-derived records, fetched and merged at runtime | Adding/editing nodes, links, census counts, or confidence values. For *what* to add/how it maps to the source catalogue, see [`STAR_WARS_DATA_MAPPING.md`](../../STAR_WARS_DATA_MAPPING.md) |
-| [`src/index.css`](../../src/index.css) | Global base styles, shared `.viewer-page` full-bleed shell, and per-viewer palettes (Star Wars / Oppenheimer) | Site-wide styles or viewer presentation |
+| [`src/index.css`](../../src/index.css) | Black-and-gold theme tokens, global base styles, and shared `.viewer-page` shell | Site-wide styles or viewer presentation |
 | [`docs/reference/`](../../docs/reference/) | Source PDFs (Oppenheimer screenplay, Star Wars catalogue) | Adding reference material |
 
 ## Routing
 
 Routes are `<Route path=".." element={<Page />} />` entries in `src/App.tsx`, rendered inside the `<BrowserRouter>` from `src/main.tsx`. To add a page: create `src/pages/<Name>.tsx`, add its `<Route>`, and link it from `Home.tsx`.
+
+## Theme
+
+The site uses one black-and-gold theme family with explicit light and dark modes. `App.tsx` owns the mode so the toggle remains available across routes; `src/theme.ts` initializes it from local storage or the operating-system preference and applies `data-theme` to the root element. Shared semantic CSS tokens in `src/index.css` style the home page and both viewer shells. Viewer-specific colors are reserved for data categories and timeline branches, where color carries meaning.
 
 ## Graphs
 
