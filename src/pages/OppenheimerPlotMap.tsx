@@ -5,9 +5,10 @@ import {
   TemplateName,
   templateExtend,
 } from '@gitgraph/react'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import type { GitgraphUserApi, BranchUserApi } from '@gitgraph/core'
 import type { ReactElement } from 'react'
+import type { ThemeMode } from '../theme'
 
 type PlotGitgraph = GitgraphUserApi<ReactElement<SVGElement>>
 type PlotBranch = BranchUserApi<ReactElement<SVGElement>>
@@ -30,37 +31,41 @@ const initialGraphSettings: GraphSettings = {
   orientation: Orientation.VerticalReverse,
 }
 
-const baseGraphOptions = {
-  template: templateExtend(TemplateName.Metro, {
-    colors: Object.values(BRANCH_COLOR),
-    commit: {
-      message: {
-        displayAuthor: false,
-        color: '#e8dcc8',
-        font: 'normal 13px system-ui, sans-serif',
+function graphOptions(theme: ThemeMode) {
+  const dark = theme === 'dark'
+
+  return {
+    template: templateExtend(TemplateName.Metro, {
+      colors: Object.values(BRANCH_COLOR),
+      commit: {
+        message: {
+          displayAuthor: false,
+          color: dark ? '#fafafa' : '#000000',
+          font: 'normal 15px system-ui, sans-serif',
+        },
+        dot: {
+          size: 10,
+        },
       },
-      dot: {
-        size: 10,
+      branch: {
+        lineWidth: 6,
+        spacing: 46,
+        label: {
+          display: true,
+          color: dark ? '#000000' : '#fafafa',
+          strokeColor: 'transparent',
+          bgColor: dark ? '#fca311' : '#14213d',
+          font: 'bold 12px system-ui, sans-serif',
+        },
       },
-    },
-    branch: {
-      lineWidth: 6,
-      spacing: 46,
-      label: {
-        display: true,
-        color: '#1a120c',
+      tag: {
+        color: '#000000',
+        bgColor: '#fca311',
         strokeColor: 'transparent',
-        bgColor: '#e8dcc8',
-        font: 'bold 11px system-ui, sans-serif',
+        font: 'normal 12px system-ui, sans-serif',
       },
-    },
-    tag: {
-      color: '#1a120c',
-      bgColor: '#d4c4a8',
-      strokeColor: 'transparent',
-      font: 'normal 11px system-ui, sans-serif',
-    },
-  }),
+    }),
+  }
 }
 
 function branchWithColor(
@@ -74,7 +79,6 @@ function branchWithColor(
     commitDefaultOptions: {
       style: {
         color,
-        message: { color },
         dot: { color },
       },
     },
@@ -195,8 +199,16 @@ function buildOppenheimerPlot(gitgraph: PlotGitgraph) {
   )
 }
 
-function OppenheimerPlotMap() {
+type OppenheimerPlotMapProps = {
+  theme: ThemeMode
+}
+
+function OppenheimerPlotMap({ theme }: OppenheimerPlotMapProps) {
   const [settings, setSettings] = useState<GraphSettings>(initialGraphSettings)
+  const options = useMemo(
+    () => ({ ...graphOptions(theme), ...settings }),
+    [settings, theme],
+  )
 
   const handleOptionsChange = useCallback(
     (nextSettings: Partial<GraphSettings>) => {
@@ -272,8 +284,8 @@ function OppenheimerPlotMap() {
 
       <div className="plot-stage">
         <Gitgraph
-          key={JSON.stringify(settings)}
-          options={{ ...baseGraphOptions, ...settings }}
+          key={`${theme}-${JSON.stringify(settings)}`}
+          options={options}
         >
           {buildOppenheimerPlot}
         </Gitgraph>
