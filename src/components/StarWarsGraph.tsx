@@ -4,6 +4,7 @@ import {
   forceCollide,
   forceLink,
   forceManyBody,
+  forceRadial,
   forceSimulation,
   select,
   zoom,
@@ -12,6 +13,7 @@ import {
   type SimulationNodeDatum,
 } from 'd3'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 type NodeKind = 'character' | 'subject' | 'theme' | 'work' | 'cue' | 'occurrence' | 'analysis'
 
@@ -194,15 +196,15 @@ function mergeGraph(parts: GraphData[]): GraphData {
   return { nodes: [...nodeMap.values()], links: [...linkMap.values()] }
 }
 
-function connectedIds(data: GraphData, activeId: string | null) {
+function connectedIds(data: GraphData, focusIds: Set<string>) {
   const ids = new Set<string>()
-  if (!activeId) return ids
-  ids.add(activeId)
+  if (focusIds.size === 0) return ids
+  for (const id of focusIds) ids.add(id)
   for (const link of data.links) {
     const source = endpointId(link.source)
     const target = endpointId(link.target)
-    if (source === activeId) ids.add(target)
-    if (target === activeId) ids.add(source)
+    if (focusIds.has(source)) ids.add(target)
+    if (focusIds.has(target)) ids.add(source)
   }
   return ids
 }
@@ -278,13 +280,13 @@ function columnsFor(type: NodeType): TableColumn[] {
 function GraphTable({
   data,
   nodes,
-  activeNodeId,
+  focusIds,
   onHover,
   onPin,
 }: {
   data: GraphData
   nodes: GraphNode[]
-  activeNodeId: string | null
+  focusIds: Set<string>
   onHover: (id: string | null) => void
   onPin: (id: string) => void
 }) {
@@ -311,6 +313,8 @@ function GraphTable({
         return a.label.localeCompare(b.label)
       }),
   })).filter((group) => group.nodes.length)
+
+  const hasFocus = focusIds.size > 0
 
   return (
     <div className="catalogue-groups">
@@ -342,11 +346,11 @@ function GraphTable({
                         .filter((candidate): candidate is GraphNode => Boolean(candidate))
                         .map((candidate) => [candidate.id, candidate]),
                     ).values()]
-                    const isActive = node.id === activeNodeId
+                    const isActive = focusIds.has(node.id)
                     return (
                       <tr
                         key={node.id}
-                        className={(isActive ? 'is-active ' : '') + (activeNodeId && !isActive ? 'is-dimmed' : '')}
+                        className={(isActive ? 'is-active ' : '') + (hasFocus && !isActive ? 'is-dimmed' : '')}
                         onMouseEnter={() => onHover(node.id)}
                         onMouseLeave={() => onHover(null)}
                         onFocus={() => onHover(node.id)}
@@ -377,13 +381,32 @@ function StarWarsGraph() {
   const svgRef = useRef<SVGSVGElement>(null)
   const [data, setData] = useState<GraphData>({ nodes: [], links: [] })
   const [error, setError] = useState<string | null>(null)
-  const [width, setWidth] = useState(1200)
+  const [size, setSize] = useState({ width: 1200, height: 800 })
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null)
-  const [pinnedNodeId, setPinnedNodeId] = useState<string | null>(null)
+  const [pinnedIds, setPinnedIds] = useState<Set<string>>(() => new Set())
   const [query, setQuery] = useState('')
-  const [enabledTypes, setEnabledTypes] = useState<Set<NodeType>>(() => new Set(TYPE_ORDER))
+  const [enabledTypes, setEnabledTypes] = useState<Set<NodeType>>(
+    () => new Set<NodeType>(['work', 'leitmotif-family']),
+  )
 
-  const activeNodeId = hoveredNodeId ?? pinnedNodeId
+  const focusIds = useMemo(() => {
+    const ids = new Set(pinnedIds)
+    if (hoveredNodeId) ids.add(hoveredNodeId)
+    return ids
+  }, [hoveredNodeId, pinnedIds])
+
+  function togglePin(id: string) {
+    setPinnedIds((current) => {
+      const next = new Set(current)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  function clearPins() {
+    setPinnedIds(new Set())
+  }
 
   useEffect(() => {
     let cancelled = false
@@ -406,7 +429,10 @@ function StarWarsGraph() {
   useEffect(() => {
     if (!containerRef.current) return
     const observer = new ResizeObserver(([entry]) => {
-      setWidth(Math.max(320, Math.floor(entry.contentRect.width)))
+      setSize({
+        width: Math.max(320, Math.floor(entry.contentRect.width)),
+        height: Math.max(480, Math.floor(entry.contentRect.height)),
+      })
     })
     observer.observe(containerRef.current)
     return () => observer.disconnect()
@@ -438,9 +464,11 @@ function StarWarsGraph() {
   }, [query, visibleData.nodes])
 
   const searchMatchIds = useMemo(() => new Set(tableNodes.map((node) => node.id)), [tableNodes])
-  const neighborIds = useMemo(() => connectedIds(visibleData, activeNodeId), [visibleData, activeNodeId])
-  const activeNode = data.nodes.find((node) => node.id === activeNodeId)
-  const height = Math.max(620, Math.min(900, Math.round(width * 0.58)))
+  const neighborIds = useMemo(() => connectedIds(visibleData, focusIds), [visibleData, focusIds])
+  const inspectId = hoveredNodeId
+    ?? (pinnedIds.size === 1 ? [...pinnedIds][0] : null)
+  const inspectNode = inspectId ? data.nodes.find((node) => node.id === inspectId) : undefined
+  const { width, height } = size
 
   useEffect(() => {
     if (!svgRef.current || visibleData.nodes.length === 0) return
@@ -452,6 +480,18 @@ function StarWarsGraph() {
     const root = svg.append('g').attr('class', 'graph-viewport')
     const links = visibleData.links.map((link) => ({ ...link }))
     const nodes = visibleData.nodes.map((node) => ({ ...node }))
+    const cx = width / 2
+    const cy = height / 2
+    // Seed on a circle so the first paint matches the radial warm-start
+    // (similar to the d3-force docs hero: tight ring, then expand).
+    const startRadius = Math.min(width, height) * 0.22
+    nodes.forEach((node, index) => {
+      const angle = (index / nodes.length) * Math.PI * 2
+      node.x = cx + Math.cos(angle) * startRadius
+      node.y = cy + Math.sin(angle) * startRadius
+    })
+
+    const radial = forceRadial(startRadius, cx, cy).strength(0.75)
     const simulation = forceSimulation(nodes)
       .force(
         'link',
@@ -461,7 +501,8 @@ function StarWarsGraph() {
           .strength((link) => link.kind === 'used-in-count' ? 0.18 : 0.45),
       )
       .force('charge', forceManyBody().strength(-82))
-      .force('center', forceCenter(width / 2, height / 2))
+      .force('center', forceCenter(cx, cy))
+      .force('radial', radial)
       .force(
         'collide',
         forceCollide<GraphNode>()
@@ -492,12 +533,12 @@ function StarWarsGraph() {
       .on('mouseleave blur', () => setHoveredNodeId(null))
       .on('click', (event, datum) => {
         event.stopPropagation()
-        setPinnedNodeId((current) => current === datum.id ? null : datum.id)
+        togglePin(datum.id)
       })
       .on('keydown', (event: KeyboardEvent, datum) => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault()
-          setPinnedNodeId((current) => current === datum.id ? null : datum.id)
+          togglePin(datum.id)
         }
       })
 
@@ -508,8 +549,9 @@ function StarWarsGraph() {
 
     node.append('text')
       .attr('class', 'graph-label')
-      .attr('x', (datum) => TYPE_CONFIG[nodeType(datum)].radius + 5)
-      .attr('y', 3)
+      .attr('text-anchor', 'middle')
+      .attr('x', 0)
+      .attr('y', (datum) => TYPE_CONFIG[nodeType(datum)].radius + 12)
       .text((datum) => shortLabel(datum.label))
 
     node.append('title').text((datum) => [datum.label, detailLine(datum)].filter(Boolean).join('\n'))
@@ -539,10 +581,14 @@ function StarWarsGraph() {
     )
       .on('dblclick.zoom', null)
       .on('click', (event) => {
-        if (event.target === svgRef.current) setPinnedNodeId(null)
+        if (event.target === svgRef.current) clearPins()
       })
 
     simulation.on('tick', () => {
+      // Ease the radial ring away as the simulation cools so charge/links take over.
+      const cooled = 1 - simulation.alpha()
+      radial.strength(Math.max(0, 0.75 * (1 - cooled * 1.15)))
+
       link
         .attr('x1', (datum) => (datum.source as GraphNode).x ?? 0)
         .attr('y1', (datum) => (datum.source as GraphNode).y ?? 0)
@@ -560,26 +606,27 @@ function StarWarsGraph() {
     if (!svgRef.current) return
     const svg = select(svgRef.current)
     const hasQuery = query.trim().length > 0
+    const hasFocus = focusIds.size > 0
     svg.selectAll<SVGGElement, GraphNode>('.graph-node')
-      .classed('is-active', (node) => node.id === activeNodeId)
-      .classed('is-neighbor', (node) => Boolean(activeNodeId) && neighborIds.has(node.id) && node.id !== activeNodeId)
+      .classed('is-active', (node) => focusIds.has(node.id))
+      .classed('is-neighbor', (node) => hasFocus && neighborIds.has(node.id) && !focusIds.has(node.id))
       .classed(
         'is-dimmed',
-        (node) => activeNodeId ? !neighborIds.has(node.id) : hasQuery && !searchMatchIds.has(node.id),
+        (node) => hasFocus ? !neighborIds.has(node.id) : hasQuery && !searchMatchIds.has(node.id),
       )
     svg.selectAll<SVGLineElement, GraphLink>('.graph-links line')
       .classed(
         'is-active',
-        (link) => Boolean(activeNodeId) &&
-          (endpointId(link.source) === activeNodeId || endpointId(link.target) === activeNodeId),
+        (link) => hasFocus &&
+          (focusIds.has(endpointId(link.source)) || focusIds.has(endpointId(link.target))),
       )
       .classed(
         'is-dimmed',
-        (link) => Boolean(activeNodeId) &&
-          endpointId(link.source) !== activeNodeId &&
-          endpointId(link.target) !== activeNodeId,
+        (link) => hasFocus &&
+          !focusIds.has(endpointId(link.source)) &&
+          !focusIds.has(endpointId(link.target)),
       )
-  }, [activeNodeId, neighborIds, query, searchMatchIds])
+  }, [focusIds, neighborIds, query, searchMatchIds])
 
   function toggleType(type: NodeType) {
     setEnabledTypes((current) => {
@@ -588,7 +635,6 @@ function StarWarsGraph() {
       else next.add(type)
       return next
     })
-    setPinnedNodeId(null)
   }
 
   if (error) return <p className="graph-message">Could not load graph: {error}</p>
@@ -596,36 +642,6 @@ function StarWarsGraph() {
 
   return (
     <section className="star-wars-explorer">
-      <div className="graph-toolbar">
-        <label className="graph-search">
-          <span>Find anything</span>
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Rey, ostinato, Episode V…"
-          />
-        </label>
-        <div className="graph-legend" aria-label="Toggle graph types">
-          {TYPE_ORDER.filter((type) => data.nodes.some((node) => nodeType(node) === type)).map((type) => {
-            const config = TYPE_CONFIG[type]
-            const enabled = enabledTypes.has(type)
-            return (
-              <button
-                key={type}
-                type="button"
-                className={enabled ? 'is-enabled' : ''}
-                onClick={() => toggleType(type)}
-                aria-pressed={enabled}
-              >
-                <span className="legend-swatch" style={{ background: config.color }} />
-                {config.label}
-              </button>
-            )
-          })}
-        </div>
-      </div>
-
       <div className="graph-stage" ref={containerRef}>
         <div className="graph-stage-meta">
           <span>{visibleData.nodes.length} nodes</span>
@@ -638,37 +654,94 @@ function StarWarsGraph() {
           role="img"
           aria-label="Interactive force-directed knowledge graph of Star Wars music"
         />
-        <aside className={'graph-inspector ' + (activeNode ? 'is-visible' : '')} aria-live="polite">
-          {activeNode && (
+        <aside className={'graph-inspector ' + (inspectNode || pinnedIds.size > 1 ? 'is-visible' : '')} aria-live="polite">
+          {inspectNode ? (
             <>
-              <span className="inspector-type" style={{ color: TYPE_CONFIG[nodeType(activeNode)].color }}>
-                {TYPE_CONFIG[nodeType(activeNode)].label}
+              <span className="inspector-type" style={{ color: TYPE_CONFIG[nodeType(inspectNode)].color }}>
+                {TYPE_CONFIG[nodeType(inspectNode)].label}
               </span>
-              <strong>{activeNode.label}</strong>
-              <span>{detailLine(activeNode)}</span>
-              <span>{neighborIds.size - 1} direct connections</span>
+              <strong>{inspectNode.label}</strong>
+              <span>{detailLine(inspectNode)}</span>
+              <span>{Math.max(0, neighborIds.size - focusIds.size)} direct connections</span>
             </>
-          )}
+          ) : pinnedIds.size > 1 ? (
+            <>
+              <span className="inspector-type">Pinned</span>
+              <strong>{pinnedIds.size} nodes</strong>
+              <span>Click Reset pins to clear the selection</span>
+            </>
+          ) : null}
         </aside>
+        {pinnedIds.size > 0 && (
+          <button type="button" className="pin-reset" onClick={clearPins}>
+            Reset pins ({pinnedIds.size})
+          </button>
+        )}
       </div>
 
-      <header className="catalogue-heading">
-        <div>
-          <p className="eyebrow">Catalogue index</p>
-          <h2>Every node, with the useful details intact</h2>
-        </div>
-        <p>
-          {tableNodes.length} of {visibleData.nodes.length} visible. Hover any row to isolate the same
-          node in the graph; click to keep it pinned.
+      <header className="viewer-hero overlay-pane">
+        <Link className="back-link" to="/">
+          &larr; Static viewers
+        </Link>
+        <p className="eyebrow">After Frank Lehman · Complete Catalogue · 2023 revision</p>
+        <h1>The musical galaxy, connected</h1>
+        <p className="viewer-deck">
+          An interactive homage to Frank Lehman&apos;s Complete Catalogue of the Musical
+          Themes of Star Wars — his names, taxonomy, and analytical uncertainty, mapped
+          so you can explore the scores the way he catalogued them.
         </p>
       </header>
-      <GraphTable
-        data={visibleData}
-        nodes={tableNodes}
-        activeNodeId={activeNodeId}
-        onHover={setHoveredNodeId}
-        onPin={(id) => setPinnedNodeId((current) => current === id ? null : id)}
-      />
+
+      <aside className="catalogue-pane overlay-pane">
+        <label className="sidebar-pane graph-search">
+          <span>Find anything</span>
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Rey, ostinato, Episode V…"
+          />
+        </label>
+
+        <fieldset className="sidebar-pane graph-filters">
+          <legend>Show types</legend>
+          {TYPE_ORDER.filter((type) => data.nodes.some((node) => nodeType(node) === type)).map((type) => {
+            const config = TYPE_CONFIG[type]
+            const enabled = enabledTypes.has(type)
+            return (
+              <label key={type} className={enabled ? 'is-enabled' : ''}>
+                <input
+                  type="checkbox"
+                  checked={enabled}
+                  onChange={() => toggleType(type)}
+                />
+                <span className="filter-swatch" style={{ background: config.color }} aria-hidden="true" />
+                <span>{config.label}</span>
+              </label>
+            )
+          })}
+        </fieldset>
+
+        <div className="sidebar-pane catalogue-block">
+          <header className="catalogue-heading">
+            <div>
+              <p className="eyebrow">Catalogue index</p>
+              <h2>All Nodes and their Categories</h2>
+            </div>
+            <p>
+              {tableNodes.length} of {visibleData.nodes.length} visible. Hover any row to isolate the same
+              node in the graph; click to keep it pinned.
+            </p>
+          </header>
+          <GraphTable
+            data={visibleData}
+            nodes={tableNodes}
+            focusIds={focusIds}
+            onHover={setHoveredNodeId}
+            onPin={togglePin}
+          />
+        </div>
+      </aside>
     </section>
   )
 }
