@@ -1,0 +1,1441 @@
+{
+  "meta": {
+    "source": "Frank Lehman, Complete Catalogue of the Musical Themes of Star Wars",
+    "revision": "2023-06-19",
+    "sourcePages": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      20,
+      22,
+      23,
+      24,
+      25,
+      26,
+      28,
+      30,
+      32,
+      33,
+      34,
+      37,
+      38,
+      39,
+      40,
+      43,
+      44,
+      45,
+      46,
+      101,
+      102
+    ],
+    "description": "Semantic subjects explicitly described in the catalogue and per-film thematic census counts aggregated to the 62 parent leitmotif families.",
+    "cellSumsPerFilm": { "I": 95, "II": 69, "III": 101, "IV": 107, "V": 183, "VI": 185, "VII": 168, "VIII": 267, "IX": 215 },
+    "publishedTotalsPerFilm": { "I": 95, "II": 69, "III": 100, "IV": 107, "V": 182, "VI": 180, "VII": 167, "VIII": 267, "IX": 216 },
+    "totalsNote": "The source's printed totals disagree with the sum of its visible motif cells in several columns; both are preserved without forcing agreement."
+  },
+  "nodes": [
+    {
+      "id": "subject-luke",
+      "label": "Luke Skywalker",
+      "kind": "subject",
+      "category": "character",
+      "description": "Hero whose individual identity is carried by the Main Theme; later also the subject of Luke in Exile.",
+      "sourcePage": 5
+    },
+    {
+      "id": "subject-rebel-alliance",
+      "label": "Rebel Alliance",
+      "kind": "subject",
+      "category": "faction",
+      "description": "The Rebel Fanfare signifies the Rebel Alliance and later the Resistance.",
+      "sourcePage": 6
+    },
+    {
+      "id": "subject-resistance",
+      "label": "Resistance",
+      "kind": "subject",
+      "category": "faction",
+      "description": "Represented by the Rebel Fanfare and, in the sequel trilogy, the March of the Resistance.",
+      "sourcePage": 6
+    },
+    {
+      "id": "subject-millennium-falcon",
+      "label": "Millennium Falcon",
+      "kind": "subject",
+      "category": "spacecraft",
+      "description": "The Rebel Fanfare drifts toward the Falcon in later films; TIE Fighter Attack also becomes a Falcon theme through reuse.",
+      "sourcePage": 6
+    },
+    {
+      "id": "subject-force",
+      "label": "The Force",
+      "kind": "subject",
+      "category": "concept",
+      "description": "The Force theme's principal subject.",
+      "sourcePage": 6
+    },
+    {
+      "id": "subject-jedi",
+      "label": "Jedi Order",
+      "kind": "subject",
+      "category": "faction",
+      "description": "The Force theme functions as a leitmotif for the Jedi, especially Obi-Wan.",
+      "sourcePage": 6
+    },
+    {
+      "id": "subject-obi-wan",
+      "label": "Obi-Wan Kenobi",
+      "kind": "subject",
+      "category": "character",
+      "description": "Especially close character association within the Force theme's broader semantic field.",
+      "sourcePage": 6
+    },
+    {
+      "id": "subject-leia",
+      "label": "Leia Organa",
+      "kind": "subject",
+      "category": "character",
+      "description": "Leia's lyrical theme follows Leia and, in A New Hope, Luke's subjective image of her.",
+      "sourcePage": 7
+    },
+    {
+      "id": "subject-death-star",
+      "label": "Death Star",
+      "kind": "subject",
+      "category": "object",
+      "description": "Primary Imperial warship represented by the Death Star motif.",
+      "sourcePage": 7
+    },
+    {
+      "id": "subject-star-destroyers",
+      "label": "Star Destroyers",
+      "kind": "subject",
+      "category": "spacecraft",
+      "description": "Secondary Imperial-warship association of the Death Star motif.",
+      "sourcePage": 7
+    },
+    {
+      "id": "subject-darth-vader",
+      "label": "Darth Vader",
+      "kind": "subject",
+      "category": "character",
+      "description": "Represented by the ANH Imperials cluster and, from Empire onward, the Imperial March.",
+      "sourcePage": 8
+    },
+    {
+      "id": "subject-imperial-troops",
+      "label": "Imperial troops",
+      "kind": "subject",
+      "category": "faction",
+      "description": "Vader, stormtroopers, and Imperial troops are represented by the ANH Imperials cluster.",
+      "sourcePage": 8
+    },
+    {
+      "id": "subject-jawas",
+      "label": "Jawas",
+      "kind": "subject",
+      "category": "species",
+      "description": "The Jawas leitmotif is attached to the creatures; a component also follows the Sandcrawler.",
+      "sourcePage": 9
+    },
+    {
+      "id": "subject-yoda",
+      "label": "Yoda",
+      "kind": "subject",
+      "category": "character",
+      "description": "A flexible, tender theme appearing in every film that features Yoda.",
+      "sourcePage": 12
+    },
+    {
+      "id": "subject-droids",
+      "label": "R2-D2 & C-3PO",
+      "kind": "subject",
+      "category": "characters",
+      "description": "The Droids theme's principal character pair.",
+      "sourcePage": 13
+    },
+    {
+      "id": "subject-boba-fett",
+      "label": "Boba Fett",
+      "kind": "subject",
+      "category": "character",
+      "description": "Strict character association, defined in part by bassoon timbre.",
+      "sourcePage": 14
+    },
+    {
+      "id": "subject-cloud-city",
+      "label": "Cloud City",
+      "kind": "subject",
+      "category": "place",
+      "description": "The Cloud City theme represents Bespin's Cloud City, also called Lando's Palace.",
+      "sourcePage": 15
+    },
+    {
+      "id": "subject-palpatine",
+      "label": "Emperor Palpatine",
+      "kind": "subject",
+      "category": "character",
+      "description": "The Emperor theme represents Palpatine / Darth Sidious across the saga.",
+      "sourcePage": 17
+    },
+    {
+      "id": "subject-jabba",
+      "label": "Jabba the Hutt",
+      "kind": "subject",
+      "category": "character",
+      "description": "Jabba's grotesque, tuba-centered character leitmotif.",
+      "sourcePage": 18
+    },
+    {
+      "id": "subject-ewoks",
+      "label": "Ewoks",
+      "kind": "subject",
+      "category": "species",
+      "description": "The Ewok family represents the inhabitants of Endor.",
+      "sourcePage": 18
+    },
+    {
+      "id": "subject-skywalker-twins",
+      "label": "Luke & Leia's bond",
+      "kind": "subject",
+      "category": "relationship",
+      "description": "The theme begins once both twins understand their relationship.",
+      "sourcePage": 18
+    },
+    {
+      "id": "subject-young-anakin",
+      "label": "Young Anakin",
+      "kind": "subject",
+      "category": "character",
+      "description": "Anakin before his transformation into Darth Vader.",
+      "sourcePage": 20
+    },
+    {
+      "id": "subject-trade-federation-army",
+      "label": "Trade Federation droid army",
+      "kind": "subject",
+      "category": "faction",
+      "description": "The Droid March represents the Trade Federation's robotic army.",
+      "sourcePage": 22
+    },
+    {
+      "id": "subject-darth-maul",
+      "label": "Darth Maul",
+      "kind": "subject",
+      "category": "character",
+      "description": "A brief hostile motif heard before Maul's climactic duel.",
+      "sourcePage": 23
+    },
+    {
+      "id": "subject-jar-jar",
+      "label": "Jar Jar Binks",
+      "kind": "subject",
+      "category": "character",
+      "description": "Jar Jar's comic, rhythmically complex character theme.",
+      "sourcePage": 24
+    },
+    {
+      "id": "subject-qui-gon",
+      "label": "Qui-Gon Jinn",
+      "kind": "subject",
+      "category": "character",
+      "description": "A foregrounded theme that the catalogue notes is not always tightly attached to Qui-Gon.",
+      "sourcePage": 24
+    },
+    {
+      "id": "subject-shmi",
+      "label": "Shmi Skywalker",
+      "kind": "subject",
+      "category": "character",
+      "description": "Melancholic theme for Anakin's mother.",
+      "sourcePage": 25
+    },
+    {
+      "id": "subject-anakin-padme",
+      "label": "Anakin & Padmé's romance",
+      "kind": "subject",
+      "category": "relationship",
+      "description": "The tragic love theme commonly known as Across the Stars.",
+      "sourcePage": 25
+    },
+    {
+      "id": "subject-aotc-conspiracy",
+      "label": "AOTC conspiracy",
+      "kind": "subject",
+      "category": "concept",
+      "description": "The mystery plot involving Zam, Jango, Dooku, Separatists, and Palpatine.",
+      "sourcePage": 26
+    },
+    {
+      "id": "subject-kamino-mystery",
+      "label": "Kamino mystery",
+      "kind": "subject",
+      "category": "concept",
+      "description": "Mystery and ambiguity centered especially on Kamino.",
+      "sourcePage": 26
+    },
+    {
+      "id": "subject-anakin-downfall",
+      "label": "Anakin's downfall",
+      "kind": "subject",
+      "category": "event",
+      "description": "The Descent complex accompanies Anakin's fall and the eradication of the Jedi.",
+      "sourcePage": 28
+    },
+    {
+      "id": "subject-general-grievous",
+      "label": "General Grievous",
+      "kind": "subject",
+      "category": "character",
+      "description": "Short, pompous leitmotif for the Separatist military leader.",
+      "sourcePage": 30
+    },
+    {
+      "id": "subject-kylo-ren",
+      "label": "Kylo Ren",
+      "kind": "subject",
+      "category": "character",
+      "description": "Three related identities: aggressive, hesitant, and menacing / First Order.",
+      "sourcePage": 32
+    },
+    {
+      "id": "subject-first-order",
+      "label": "First Order",
+      "kind": "subject",
+      "category": "faction",
+      "description": "Shares the grasping Menacing figure with Kylo Ren C.",
+      "sourcePage": 33
+    },
+    {
+      "id": "subject-snoke",
+      "label": "Snoke",
+      "kind": "subject",
+      "category": "character",
+      "description": "Low vocal music associated with Snoke in The Force Awakens and The Last Jedi.",
+      "sourcePage": 33
+    },
+    {
+      "id": "subject-rey",
+      "label": "Rey",
+      "kind": "subject",
+      "category": "character",
+      "description": "The sequel protagonist has three detachable thematic identities across families 45 and 46.",
+      "sourcePage": 34
+    },
+    {
+      "id": "subject-map-to-luke",
+      "label": "Map to Luke",
+      "kind": "subject",
+      "category": "object",
+      "description": "The minimal Map motif appears with the map to Luke and its retrieval.",
+      "sourcePage": 37
+    },
+    {
+      "id": "subject-poe",
+      "label": "Poe Dameron",
+      "kind": "subject",
+      "category": "character",
+      "description": "Stalwart leitmotif used across all three sequel films.",
+      "sourcePage": 37
+    },
+    {
+      "id": "subject-finn",
+      "label": "Finn",
+      "kind": "subject",
+      "category": "character",
+      "description": "An incipient character theme most prominent in early pursuit scenes.",
+      "sourcePage": 38
+    },
+    {
+      "id": "subject-ahch-to",
+      "label": "Ahch-To",
+      "kind": "subject",
+      "category": "place",
+      "description": "Jedi Steps accompanies the remote skerry and birthplace of the Jedi Order.",
+      "sourcePage": 39
+    },
+    {
+      "id": "subject-rose",
+      "label": "Rose Tico",
+      "kind": "subject",
+      "category": "character",
+      "description": "Rose's theme conveys her hopefulness and moral resolve.",
+      "sourcePage": 40
+    },
+    {
+      "id": "subject-trio-friendship",
+      "label": "Rey, Finn & Poe's bond",
+      "kind": "subject",
+      "category": "relationship",
+      "description": "The Friendship theme represents the bond among the sequel trio.",
+      "sourcePage": 43
+    },
+    {
+      "id": "subject-final-order",
+      "label": "Palpatine's Final Order",
+      "kind": "subject",
+      "category": "faction",
+      "description": "The Psalm of the Sith functions as the Final Order's anthem.",
+      "sourcePage": 44
+    },
+    {
+      "id": "subject-wayfinder",
+      "label": "Sith Wayfinder",
+      "kind": "subject",
+      "category": "object",
+      "description": "One of the paired Sith Artifact motifs.",
+      "sourcePage": 45
+    },
+    {
+      "id": "subject-ochi-dagger",
+      "label": "Ochi's Dagger",
+      "kind": "subject",
+      "category": "object",
+      "description": "The second Sith Artifact motif's likely subject.",
+      "sourcePage": 45
+    },
+    {
+      "id": "subject-knights-ren",
+      "label": "Knights of Ren",
+      "kind": "subject",
+      "category": "faction",
+      "description": "A terse villain motif for the Knights of Ren.",
+      "sourcePage": 46
+    }
+  ],
+  "links": [
+    {
+      "source": "subject-luke",
+      "target": "theme-1-main",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 5
+    },
+    {
+      "source": "subject-luke",
+      "target": "theme-55-luke-exile",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 5
+    },
+    {
+      "source": "subject-rebel-alliance",
+      "target": "theme-2-rebel-fanfare",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 6
+    },
+    {
+      "source": "subject-resistance",
+      "target": "theme-2-rebel-fanfare",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 6
+    },
+    {
+      "source": "subject-resistance",
+      "target": "theme-47-march-resistance",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 6
+    },
+    {
+      "source": "subject-millennium-falcon",
+      "target": "theme-2-rebel-fanfare",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 6
+    },
+    {
+      "source": "subject-millennium-falcon",
+      "target": "theme-8-tie-fighter-attack",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 6
+    },
+    {
+      "source": "subject-force",
+      "target": "theme-3-force",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 6
+    },
+    {
+      "source": "subject-jedi",
+      "target": "theme-3-force",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 6
+    },
+    {
+      "source": "subject-obi-wan",
+      "target": "theme-3-force",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 6
+    },
+    {
+      "source": "subject-leia",
+      "target": "theme-4-leia",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 7
+    },
+    {
+      "source": "subject-death-star",
+      "target": "theme-5-death-star",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 7
+    },
+    {
+      "source": "subject-star-destroyers",
+      "target": "theme-5-death-star",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 7
+    },
+    {
+      "source": "subject-darth-vader",
+      "target": "theme-6-imperials",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 8
+    },
+    {
+      "source": "subject-darth-vader",
+      "target": "theme-10-imperial-march",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 8
+    },
+    {
+      "source": "subject-imperial-troops",
+      "target": "theme-6-imperials",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 8
+    },
+    {
+      "source": "subject-jawas",
+      "target": "theme-7-jawas",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 9
+    },
+    {
+      "source": "subject-yoda",
+      "target": "theme-12-yoda",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 12
+    },
+    {
+      "source": "subject-droids",
+      "target": "theme-13-droids",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 13
+    },
+    {
+      "source": "subject-boba-fett",
+      "target": "theme-14-boba-fett",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 14
+    },
+    {
+      "source": "subject-cloud-city",
+      "target": "theme-15-cloud-city",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 15
+    },
+    {
+      "source": "subject-palpatine",
+      "target": "theme-17-emperor",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 17
+    },
+    {
+      "source": "subject-palpatine",
+      "target": "theme-59-psalm-sith",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 17
+    },
+    {
+      "source": "subject-jabba",
+      "target": "theme-18-jabba",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 18
+    },
+    {
+      "source": "subject-ewoks",
+      "target": "theme-19-ewoks",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 18
+    },
+    {
+      "source": "subject-skywalker-twins",
+      "target": "theme-20-luke-leia",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 18
+    },
+    {
+      "source": "subject-young-anakin",
+      "target": "theme-24-young-anakin",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 20
+    },
+    {
+      "source": "subject-trade-federation-army",
+      "target": "theme-26-droid-march",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 22
+    },
+    {
+      "source": "subject-darth-maul",
+      "target": "theme-27-darth-maul",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 23
+    },
+    {
+      "source": "subject-jar-jar",
+      "target": "theme-28-jar-jar",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 24
+    },
+    {
+      "source": "subject-qui-gon",
+      "target": "theme-29-qui-gon",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 24
+    },
+    {
+      "source": "subject-shmi",
+      "target": "theme-30-shmi",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 25
+    },
+    {
+      "source": "subject-anakin-padme",
+      "target": "theme-32-anakin-padme",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 25
+    },
+    {
+      "source": "subject-aotc-conspiracy",
+      "target": "theme-33-conspiracy",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 26
+    },
+    {
+      "source": "subject-kamino-mystery",
+      "target": "theme-34-mystery",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 26
+    },
+    {
+      "source": "subject-anakin-downfall",
+      "target": "theme-37-descent",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 28
+    },
+    {
+      "source": "subject-general-grievous",
+      "target": "theme-39-general-grievous",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 30
+    },
+    {
+      "source": "subject-kylo-ren",
+      "target": "theme-41-kylo-a",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 32
+    },
+    {
+      "source": "subject-kylo-ren",
+      "target": "theme-42-kylo-b",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 32
+    },
+    {
+      "source": "subject-kylo-ren",
+      "target": "theme-43-first-order",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 32
+    },
+    {
+      "source": "subject-first-order",
+      "target": "theme-43-first-order",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 33
+    },
+    {
+      "source": "subject-snoke",
+      "target": "theme-44-snoke",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 33
+    },
+    {
+      "source": "subject-rey",
+      "target": "theme-45-rey-a",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 34
+    },
+    {
+      "source": "subject-rey",
+      "target": "theme-46-rey-b-c",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 34
+    },
+    {
+      "source": "subject-map-to-luke",
+      "target": "theme-48-map",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 37
+    },
+    {
+      "source": "subject-poe",
+      "target": "theme-49-poe",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 37
+    },
+    {
+      "source": "subject-finn",
+      "target": "theme-50-finn-pursuit",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 38
+    },
+    {
+      "source": "subject-ahch-to",
+      "target": "theme-53-jedi-steps",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 39
+    },
+    {
+      "source": "subject-rose",
+      "target": "theme-54-rose",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 40
+    },
+    {
+      "source": "subject-trio-friendship",
+      "target": "theme-57-friendship",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 43
+    },
+    {
+      "source": "subject-final-order",
+      "target": "theme-59-psalm-sith",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 44
+    },
+    {
+      "source": "subject-wayfinder",
+      "target": "theme-60-sith-artifacts",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 45
+    },
+    {
+      "source": "subject-ochi-dagger",
+      "target": "theme-60-sith-artifacts",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 45
+    },
+    {
+      "source": "subject-knights-ren",
+      "target": "theme-61-knights-ren",
+      "label": "represented by",
+      "kind": "represents",
+      "confidence": 1,
+      "sourcePage": 46
+    }
+  ],
+  "census": [
+    {
+      "themeId": "theme-1-main",
+      "counts": {
+        "I": 4,
+        "III": 2,
+        "IV": 22,
+        "V": 27,
+        "VI": 15,
+        "VII": 5,
+        "VIII": 14,
+        "IX": 15
+      },
+      "catalogueTotal": 104,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-2-rebel-fanfare",
+      "counts": {
+        "III": 1,
+        "IV": 13,
+        "V": 5,
+        "VI": 14,
+        "VII": 9,
+        "VIII": 10,
+        "IX": 4
+      },
+      "catalogueTotal": 56,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-3-force",
+      "counts": {
+        "I": 11,
+        "II": 7,
+        "III": 21,
+        "IV": 23,
+        "V": 15,
+        "VI": 24,
+        "VII": 15,
+        "VIII": 30,
+        "IX": 12
+      },
+      "catalogueTotal": 158,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-4-leia",
+      "counts": {
+        "III": 2,
+        "IV": 9,
+        "V": 4,
+        "VI": 6,
+        "VII": 6,
+        "VIII": 8,
+        "IX": 5
+      },
+      "catalogueTotal": 40,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-5-death-star",
+      "counts": {
+        "IV": 7,
+        "VI": 2,
+        "VIII": 1
+      },
+      "catalogueTotal": 10,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-6-imperials",
+      "counts": {
+        "IV": 25,
+        "IX": 3
+      },
+      "catalogueTotal": 28,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-7-jawas",
+      "counts": {
+        "IV": 3
+      },
+      "catalogueTotal": 3,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-8-tie-fighter-attack",
+      "counts": {
+        "IV": 4,
+        "VI": 4,
+        "VIII": 3
+      },
+      "catalogueTotal": 11,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-9-throne-room",
+      "counts": {
+        "IV": 1,
+        "VI": 2
+      },
+      "catalogueTotal": 3,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-10-imperial-march",
+      "counts": {
+        "I": 3,
+        "II": 5,
+        "III": 13,
+        "V": 47,
+        "VI": 33,
+        "VII": 2,
+        "VIII": 1,
+        "IX": 8
+      },
+      "catalogueTotal": 112,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-11-han-leia",
+      "counts": {
+        "V": 24,
+        "VI": 10,
+        "VII": 6,
+        "VIII": 2
+      },
+      "catalogueTotal": 42,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-12-yoda",
+      "counts": {
+        "I": 1,
+        "II": 2,
+        "III": 3,
+        "V": 25,
+        "VI": 8,
+        "VIII": 3,
+        "IX": 3
+      },
+      "catalogueTotal": 45,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-13-droids",
+      "counts": {
+        "V": 11
+      },
+      "catalogueTotal": 11,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-14-boba-fett",
+      "counts": {
+        "V": 3
+      },
+      "catalogueTotal": 3,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-15-cloud-city",
+      "counts": {
+        "V": 3
+      },
+      "catalogueTotal": 3,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-16-dark-side",
+      "counts": {
+        "V": 19,
+        "IX": 2
+      },
+      "catalogueTotal": 21,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-17-emperor",
+      "counts": {
+        "I": 7,
+        "II": 1,
+        "III": 5,
+        "VI": 9,
+        "VIII": 2,
+        "IX": 10
+      },
+      "catalogueTotal": 34,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-18-jabba",
+      "counts": {
+        "I": 1,
+        "VI": 13
+      },
+      "catalogueTotal": 14,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-19-ewoks",
+      "counts": {
+        "VI": 27
+      },
+      "catalogueTotal": 27,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-20-luke-leia",
+      "counts": {
+        "VI": 5,
+        "VIII": 1,
+        "IX": 1
+      },
+      "catalogueTotal": 7,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-21-its-a-trap",
+      "counts": {
+        "VI": 5
+      },
+      "catalogueTotal": 5,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-22-victory-fanfare",
+      "counts": {
+        "VI": 3
+      },
+      "catalogueTotal": 3,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-23-revelations",
+      "counts": {
+        "VI": 5
+      },
+      "catalogueTotal": 5,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-24-young-anakin",
+      "counts": {
+        "I": 20,
+        "II": 1,
+        "III": 1
+      },
+      "catalogueTotal": 22,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-25-duel-fates",
+      "counts": {
+        "I": 26,
+        "II": 3,
+        "III": 3,
+        "IX": 1
+      },
+      "catalogueTotal": 33,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-26-droid-march",
+      "counts": {
+        "I": 6,
+        "II": 1
+      },
+      "catalogueTotal": 7,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-27-darth-maul",
+      "counts": {
+        "I": 3
+      },
+      "catalogueTotal": 3,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-28-jar-jar",
+      "counts": {
+        "I": 7
+      },
+      "catalogueTotal": 7,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-29-qui-gon",
+      "counts": {
+        "I": 4
+      },
+      "catalogueTotal": 4,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-30-shmi",
+      "counts": {
+        "I": 1,
+        "II": 4,
+        "III": 1
+      },
+      "catalogueTotal": 6,
+      "sourcePage": 101
+    },
+    {
+      "themeId": "theme-31-funeral",
+      "counts": {
+        "I": 1,
+        "III": 3
+      },
+      "catalogueTotal": 4,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-32-anakin-padme",
+      "counts": {
+        "II": 16,
+        "III": 9
+      },
+      "catalogueTotal": 25,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-33-conspiracy",
+      "counts": {
+        "II": 10
+      },
+      "catalogueTotal": 10,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-34-mystery",
+      "counts": {
+        "II": 10,
+        "IX": 2
+      },
+      "catalogueTotal": 12,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-35-pastoral-courtship",
+      "counts": {
+        "II": 4
+      },
+      "catalogueTotal": 4,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-36-gloomy-courtship",
+      "counts": {
+        "II": 3,
+        "III": 1
+      },
+      "catalogueTotal": 4,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-37-descent",
+      "counts": {
+        "II": 2,
+        "III": 6
+      },
+      "catalogueTotal": 7,
+      "sourcePage": 102,
+      "note": "The printed family total is 7 while the per-film cells sum to 8; both are preserved."
+    },
+    {
+      "themeId": "theme-38-battle-heroes",
+      "counts": {
+        "III": 24,
+        "VIII": 1
+      },
+      "catalogueTotal": 25,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-39-general-grievous",
+      "counts": {
+        "III": 3
+      },
+      "catalogueTotal": 3,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-40-happy-landings",
+      "counts": {
+        "III": 3
+      },
+      "catalogueTotal": 3,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-41-kylo-a",
+      "counts": {
+        "VII": 15,
+        "VIII": 20,
+        "IX": 26
+      },
+      "catalogueTotal": 61,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-42-kylo-b",
+      "counts": {
+        "VII": 16,
+        "VIII": 13,
+        "IX": 7
+      },
+      "catalogueTotal": 36,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-43-first-order",
+      "counts": {
+        "VII": 10,
+        "VIII": 6
+      },
+      "catalogueTotal": 16,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-44-snoke",
+      "counts": {
+        "VII": 2,
+        "VIII": 8
+      },
+      "catalogueTotal": 10,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-45-rey-a",
+      "counts": {
+        "VII": 28,
+        "VIII": 25,
+        "IX": 25
+      },
+      "catalogueTotal": 78,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-46-rey-b-c",
+      "counts": {
+        "VII": 7,
+        "VIII": 9,
+        "IX": 9
+      },
+      "catalogueTotal": 25,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-47-march-resistance",
+      "counts": {
+        "VII": 12,
+        "VIII": 21,
+        "IX": 14
+      },
+      "catalogueTotal": 47,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-48-map",
+      "counts": {
+        "VII": 7,
+        "VIII": 3
+      },
+      "catalogueTotal": 10,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-49-poe",
+      "counts": {
+        "VII": 3,
+        "VIII": 5,
+        "IX": 4
+      },
+      "catalogueTotal": 12,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-50-finn-pursuit",
+      "counts": {
+        "VII": 16,
+        "VIII": 1,
+        "IX": 1
+      },
+      "catalogueTotal": 18,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-51-pathos",
+      "counts": {
+        "VII": 2,
+        "IX": 3
+      },
+      "catalogueTotal": 5,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-52-tension",
+      "counts": {
+        "VII": 6,
+        "VIII": 40,
+        "IX": 3
+      },
+      "catalogueTotal": 49,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-53-jedi-steps",
+      "counts": {
+        "VII": 1,
+        "VIII": 8,
+        "IX": 1
+      },
+      "catalogueTotal": 10,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-54-rose",
+      "counts": {
+        "VIII": 21
+      },
+      "catalogueTotal": 21,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-55-luke-exile",
+      "counts": {
+        "VIII": 6
+      },
+      "catalogueTotal": 6,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-56-desperation",
+      "counts": {
+        "VIII": 5
+      },
+      "catalogueTotal": 5,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-57-friendship",
+      "counts": {
+        "IX": 10
+      },
+      "catalogueTotal": 10,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-58-victory",
+      "counts": {
+        "IX": 5
+      },
+      "catalogueTotal": 5,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-59-psalm-sith",
+      "counts": {
+        "IX": 16
+      },
+      "catalogueTotal": 16,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-60-sith-artifacts",
+      "counts": {
+        "IX": 10
+      },
+      "catalogueTotal": 10,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-61-knights-ren",
+      "counts": {
+        "IX": 5
+      },
+      "catalogueTotal": 5,
+      "sourcePage": 102
+    },
+    {
+      "themeId": "theme-62-heroics",
+      "counts": {
+        "IX": 10
+      },
+      "catalogueTotal": 10,
+      "sourcePage": 102
+    }
+  ]
+}
