@@ -9,6 +9,7 @@ import { useCallback, useMemo, useState } from 'react'
 import type { GitgraphUserApi, BranchUserApi } from '@gitgraph/core'
 import type { ReactElement } from 'react'
 import type { ThemeMode } from '../theme'
+import { appendOppenheimerPlot } from '../data/oppenheimerPlotContinuation'
 
 type PlotGitgraph = GitgraphUserApi<ReactElement<SVGElement>>
 type PlotBranch = BranchUserApi<ReactElement<SVGElement>>
@@ -197,6 +198,8 @@ function buildOppenheimerPlot(gitgraph: PlotGitgraph) {
   berkeley.commit(
     'Class fills; dissolve years later; stellar-collapse lecture with Snyder',
   )
+
+  appendOppenheimerPlot(fission, fusion, berkeley)
 }
 
 type OppenheimerPlotMapProps = {
