@@ -9,7 +9,7 @@ function Home() {
         <p>Small, interactive maps for stories, scores, and strange structures.</p>
       </header>
 
-      <nav className="viewer-list" aria-label="Viewers">
+      <nav className="viewer-list" aria-label="Viewers and related projects">
         <Link to="/star-wars-musical-themes">
           <span>Star Wars musical themes</span>
           <span aria-hidden="true">&rarr;</span>
@@ -18,6 +18,10 @@ function Home() {
           <span>Oppenheimer plot map</span>
           <span aria-hidden="true">&rarr;</span>
         </Link>
+        <a href="https://www.whatsinmycookiejar.com" target="_blank" rel="noreferrer">
+          <span>What's in My Cookie Jar?</span>
+          <span aria-hidden="true">&rarr;</span>
+        </a>
       </nav>
     </main>
   )
