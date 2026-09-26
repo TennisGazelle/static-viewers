@@ -136,8 +136,7 @@ function ColorAtlas() {
       const active=selected?.id===color.id
       context.beginPath();context.arc(p.x,p.y,(active?8:5)*p.perspective*1.7,0,Math.PI*2)
       context.fillStyle=color.hex;context.fill();context.strokeStyle='rgba(255,255,255,.85)';context.stroke()
-      context.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--color-text-primary')
-      context.font='12px system-ui';context.fillText(color.name,p.x+9,p.y-7)
+      if(active){context.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--color-text-primary');context.font='12px system-ui';context.fillText(color.name,p.x+9,p.y-7)}
     })
   }, [visible, selected, space, rotation])
 
@@ -177,7 +176,8 @@ function ColorAtlas() {
         </div>
         <aside className="color-atlas-sidebar">
           <p className="eyebrow">{visible.length} named points</p>
-          <div className="color-name-list">{visible.map((color)=><button key={color.id} onClick={()=>setSelected(color)}><span className="color-swatch" style={{background:color.hex}}/><span><strong>{color.name}</strong><small>{color.hex} · {color.source}</small></span></button>)}</div>
+          <div className="color-name-list">{visible.slice(0,250).map((color)=><button key={color.id} onClick={()=>setSelected(color)}><span className="color-swatch" style={{background:color.hex}}/><span><strong>{color.name}</strong><small>{color.hex} · {color.source}</small></span></button>)}</div>
+          {visible.length>250&&<small className="color-list-limit">Showing the first 250 matches. Search to narrow the atlas.</small>}
           {selected&&<div className="color-inspector"><div className="color-inspector-chip" style={{background:selected.hex}}/><h2>{selected.name}</h2><code>{selected.hex}</code><p>RGB {selected.rgb.join(' · ')}</p><p>{space.toUpperCase()} {coordinates(selected,space).map((v)=>v.toFixed(3)).join(' · ')}</p><small>Defined by {selected.source} in {selected.originalSpace}.</small></div>}
         </aside>
       </div>
