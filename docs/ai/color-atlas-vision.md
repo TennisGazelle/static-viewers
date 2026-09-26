@@ -39,7 +39,7 @@ Preferred sources:
 - compatible Creative Commons datasets with required attribution;
 - original research/survey data whose redistribution terms are documented.
 
-Candidate open corpus sources include the XKCD color survey and MIT-licensed color-name-list. Wikipedia-derived records may be usable under CC BY-SA only with the required attribution/share-alike handling documented before ingestion.
+Bundled open corpora now include **31,918** records from the MIT-licensed `meodai/color-names` Color Name List and **949** XKCD survey records distributed through the MIT-licensed `meodai/color-name-lists` dataset. They remain separate source shards and retain source IDs; overlap is intentional evidence, not deduplicated away. Wikipedia-derived records may be usable under CC BY-SA only with the required attribution/share-alike handling documented before ingestion.
 
 Brand catalogs such as Pantone, LEGO/BrickLink, Crayola, RAL, and commercial paint systems are **not assumed redistributable merely because their names or swatches are visible online**. They stay in a research/candidate-source list until their terms permit bundling or permission is obtained. Pantone color data in particular should not be bundled or cross-referenced without permission.
 
@@ -55,3 +55,15 @@ The long-term atlas should include:
 - source filters so a user can distinguish standards, surveys, historical dictionaries, brands, and community datasets.
 
 The goal is a catalog, not a claim that one naming system is authoritative.
+
+
+## Bundled source manifest
+
+Runtime source membership lives in `public/data/color-names/manifest.json`. Large corpora are split into bounded JSON shards so changes remain reviewable and browser fetches can be cached independently. The viewer loads the manifest using Vite's `BASE_URL`, then merges shards in memory without erasing provenance.
+
+Current bundled sources:
+- CSS Color 4 seed set: 12 records.
+- Color Name List: 31,918 records, MIT, https://github.com/meodai/color-names
+- XKCD survey: 949 records, via MIT-licensed https://github.com/meodai/color-name-lists
+
+Do not add a commercial/brand corpus to the manifest until its redistribution terms are documented here.
