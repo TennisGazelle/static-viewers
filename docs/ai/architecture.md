@@ -11,6 +11,9 @@
 | [`src/theme.ts`](../../src/theme.ts) | Light/dark preference initialization, application, and persistence | Changing theme behavior or storage |
 | [`src/components/ThemeToggle.tsx`](../../src/components/ThemeToggle.tsx) | Persistent light/dark toggle | Changing the theme control's behavior or label |
 | [`src/pages/Home.tsx`](../../src/pages/Home.tsx) | Landing page; links to every viewer page | Adding a new viewer page (link it here too) |
+| [`src/pages/ColorAtlasPage.tsx`](../../src/pages/ColorAtlasPage.tsx) | Named-color space viewer shell | Color Atlas layout/copy |
+| [`src/components/ColorAtlas.tsx`](../../src/components/ColorAtlas.tsx) | Color-space visualization, filtering, and inspection | Color Atlas rendering/interactions |
+| [`public/data/color-names.json`](../../public/data/color-names.json) | Provenance-tagged named color records | Adding licensed/public color-name sources |
 | [`src/pages/StarWarsMusicalThemes.tsx`](../../src/pages/StarWarsMusicalThemes.tsx) | Star Wars viewer page | That page's layout/copy |
 | [`src/pages/OppenheimerPlotMap.tsx`](../../src/pages/OppenheimerPlotMap.tsx) | Oppenheimer viewer page | That page's layout/copy |
 | [`src/components/StarWarsGraph.tsx`](../../src/components/StarWarsGraph.tsx) | Observable-style D3 force graph, controls, and coordinated catalogue tables | Graph layout, interactions, visual type mappings, table columns, or loaded data shards |
