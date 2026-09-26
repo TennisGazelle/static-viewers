@@ -80,7 +80,19 @@ function ColorAtlas() {
   const dragRef = useRef<{ x: number; y: number; rx: number; ry: number } | null>(null)
 
   useEffect(() => {
-    fetch('./data/color-names.json').then((r) => r.json()).then((records: NamedColor[]) => setColors(records))
+    const base = import.meta.env.BASE_URL
+    fetch(`${base}data/color-names/manifest.json`)
+      .then((r) => r.json())
+      .then(async (manifest: { sources: { files: string[] }[] }) => {
+        const files = manifest.sources.flatMap((source) => source.files)
+        const shards = await Promise.all(files.map((file) => {
+          const path = file.startsWith('../')
+            ? `${base}data/${file.slice(3)}`
+            : `${base}data/color-names/${file}`
+          return fetch(path).then((r) => r.json() as Promise<NamedColor[]>)
+        }))
+        setColors(shards.flat())
+      })
   }, [])
 
   const visible = useMemo(() => {
