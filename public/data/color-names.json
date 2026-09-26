@@ -1,0 +1,14 @@
+[
+  {"id":"black","name":"Black","source":"CSS Color 4","originalSpace":"sRGB","rgb":[0,0,0],"hex":"#000000"},
+  {"id":"white","name":"White","source":"CSS Color 4","originalSpace":"sRGB","rgb":[255,255,255],"hex":"#FFFFFF"},
+  {"id":"red","name":"Red","source":"CSS Color 4","originalSpace":"sRGB","rgb":[255,0,0],"hex":"#FF0000"},
+  {"id":"lime","name":"Lime","source":"CSS Color 4","originalSpace":"sRGB","rgb":[0,255,0],"hex":"#00FF00"},
+  {"id":"blue","name":"Blue","source":"CSS Color 4","originalSpace":"sRGB","rgb":[0,0,255],"hex":"#0000FF"},
+  {"id":"cyan","name":"Cyan / Aqua","source":"CSS Color 4","originalSpace":"sRGB","rgb":[0,255,255],"hex":"#00FFFF"},
+  {"id":"magenta","name":"Magenta / Fuchsia","source":"CSS Color 4","originalSpace":"sRGB","rgb":[255,0,255],"hex":"#FF00FF"},
+  {"id":"yellow","name":"Yellow","source":"CSS Color 4","originalSpace":"sRGB","rgb":[255,255,0],"hex":"#FFFF00"},
+  {"id":"rebeccapurple","name":"Rebecca Purple","source":"CSS Color 4","originalSpace":"sRGB","rgb":[102,51,153],"hex":"#663399"},
+  {"id":"tomato","name":"Tomato","source":"CSS Color 4","originalSpace":"sRGB","rgb":[255,99,71],"hex":"#FF6347"},
+  {"id":"gold","name":"Gold","source":"CSS Color 4","originalSpace":"sRGB","rgb":[255,215,0],"hex":"#FFD700"},
+  {"id":"seagreen","name":"Sea Green","source":"CSS Color 4","originalSpace":"sRGB","rgb":[46,139,87],"hex":"#2E8B57"}
+]
