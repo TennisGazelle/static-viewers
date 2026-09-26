@@ -4,6 +4,8 @@ Spoke docs for AI agents working on this repo. Start at [`AGENTS.md`](../../AGEN
 
 | Doc | Covers |
 |-----|--------|
-| [architecture.md](./architecture.md) | File map, routing, the graph (d3-force) pattern, the icon convention |
+| [architecture.md](./architecture.md) | File map, routing, rendering patterns, and interaction conventions |
+| [viewer-visions.md](./viewer-visions.md) | Product intent for each standalone viewer |
+| [color-atlas-vision.md](./color-atlas-vision.md) | Color Atlas product vision, data model, and source/licensing policy |
 
 Rules live in [`.cursor/rules/rules.mdc`](../../.cursor/rules/rules.mdc), not here — this folder is architecture/how-to, not policy.
