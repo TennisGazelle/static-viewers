@@ -9,7 +9,7 @@ type NamedColor = {
   hex: string
 }
 
-type Space = 'rgb' | 'hsl' | 'oklab'
+type Space = 'rgb' | 'hsl' | 'xyz' | 'lab' | 'lch' | 'oklab' | 'oklch'
 
 type Point3 = [number, number, number]
 
@@ -27,6 +27,19 @@ function rgbToHsl([r8, g8, b8]: Point3): Point3 {
   return [hue / 360, saturation, light]
 }
 
+function rgbToXyz([r8,g8,b8]: Point3): Point3 {
+  const linear=(v:number)=>{const c=v/255;return c<=.04045?c/12.92:((c+.055)/1.055)**2.4}
+  const r=linear(r8),g=linear(g8),b=linear(b8)
+  return [(.4124564*r+.3575761*g+.1804375*b)/.95047,(.2126729*r+.7151522*g+.072175*b),(.0193339*r+.119192*g+.9503041*b)/1.08883]
+}
+function xyzToLab([x,y,z]: Point3): Point3 {
+  const f=(t:number)=>t>216/24389?Math.cbrt(t):(24389/27*t+16)/116
+  const fx=f(x),fy=f(y),fz=f(z); return [(116*fy-16)/100,(500*(fx-fy)+128)/255,(200*(fy-fz)+128)/255]
+}
+function labToLch([l,aN,bN]: Point3): Point3 {
+  const a=aN*255-128,b=bN*255-128
+  return [l,Math.hypot(a,b)/181.02,((Math.atan2(b,a)*180/Math.PI+360)%360)/360]
+}
 function rgbToOklab([r8, g8, b8]: Point3): Point3 {
   const linear = (v: number) => {
     const c = v / 255
@@ -45,7 +58,14 @@ function rgbToOklab([r8, g8, b8]: Point3): Point3 {
 function coordinates(color: NamedColor, space: Space): Point3 {
   if (space === 'rgb') return color.rgb.map((v) => v / 255) as Point3
   if (space === 'hsl') return rgbToHsl(color.rgb)
-  return rgbToOklab(color.rgb).map(clamp) as Point3
+  const xyz=rgbToXyz(color.rgb).map(clamp) as Point3
+  if (space === 'xyz') return xyz
+  const lab=xyzToLab(xyz).map(clamp) as Point3
+  if (space === 'lab') return lab
+  if (space === 'lch') return labToLch(lab).map(clamp) as Point3
+  const ok=rgbToOklab(color.rgb).map(clamp) as Point3
+  if (space === 'oklab') return ok
+  return labToLch(ok).map(clamp) as Point3
 }
 
 function ColorAtlas() {
@@ -54,6 +74,8 @@ function ColorAtlas() {
   const [selected, setSelected] = useState<NamedColor | null>(null)
   const [space, setSpace] = useState<Space>('rgb')
   const [rotation, setRotation] = useState({ x: -0.35, y: 0.65 })
+  const [hovered, setHovered] = useState<{ color: NamedColor; x: number; y: number } | null>(null)
+  const hitRef = useRef<{color:NamedColor;x:number;y:number;r:number}[]>([])
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const dragRef = useRef<{ x: number; y: number; rx: number; ry: number } | null>(null)
 
@@ -97,6 +119,7 @@ function ColorAtlas() {
     edges.forEach(([a,b])=>{const p=project(corners[a]),q=project(corners[b]);context.beginPath();context.moveTo(p.x,p.y);context.lineTo(q.x,q.y);context.stroke()})
 
     const points=visible.map((color)=>({color,p:project(coordinates(color,space))})).sort((a,b)=>a.p.z-b.p.z)
+    hitRef.current=points.map(({color,p})=>({color,x:p.x,y:p.y,r:12}))
     points.forEach(({color,p})=>{
       const active=selected?.id===color.id
       context.beginPath();context.arc(p.x,p.y,(active?8:5)*p.perspective*1.7,0,Math.PI*2)
@@ -111,7 +134,13 @@ function ColorAtlas() {
     dragRef.current={x:event.clientX,y:event.clientY,rx:rotation.x,ry:rotation.y}
   }
   const pointerMove=(event:React.PointerEvent<HTMLCanvasElement>)=>{
-    const start=dragRef.current;if(!start)return
+    const start=dragRef.current
+    if(!start){
+      const rect=event.currentTarget.getBoundingClientRect(),x=event.clientX-rect.left,y=event.clientY-rect.top
+      const hit=[...hitRef.current].reverse().find((p)=>Math.hypot(p.x-x,p.y-y)<=p.r)
+      setHovered(hit?{color:hit.color,x,y}:null); return
+    }
+    setHovered(null)
     setRotation({x:start.rx+(event.clientY-start.y)*.008,y:start.ry+(event.clientX-start.x)*.008})
   }
 
@@ -119,14 +148,20 @@ function ColorAtlas() {
     <section className="color-atlas">
       <div className="color-atlas-toolbar">
         <div className="color-atlas-tabs" aria-label="Color-space view">
-          {(['rgb','hsl','oklab'] as Space[]).map((mode)=><button key={mode} className={space===mode?'active':''} onClick={()=>setSpace(mode)}>{mode==='rgb'?'RGB cube':mode==='hsl'?'HSL space':'OKLab space'}</button>)}
+          {(['rgb','hsl','xyz','lab','lch','oklab','oklch'] as Space[]).map((mode)=><button key={mode} className={space===mode?'active':''} onClick={()=>setSpace(mode)}>{mode==='rgb'?'RGB':mode.toUpperCase()}</button>)}
         </div>
         <input aria-label="Search named colors" placeholder="Search name, hex, or source…" value={query} onChange={(e)=>setQuery(e.target.value)} />
       </div>
       <div className="color-atlas-layout">
         <div className="color-atlas-stage">
           <canvas ref={canvasRef} aria-label={"Interactive three-dimensional "+space.toUpperCase()+" color space. Drag to rotate."} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={()=>dragRef.current=null} onPointerCancel={()=>dragRef.current=null} />
-          <p className="color-atlas-hint">Drag to rotate · same colors, different coordinates</p>
+          {hovered&&<div className="color-tooltip" style={{left:hovered.x+18,top:hovered.y+18}}>
+            <span className="color-tooltip-swatch" style={{background:hovered.color.hex}}/>
+            <strong>{hovered.color.name}</strong><code>{hovered.color.hex}</code>
+            <span>{space.toUpperCase()} {coordinates(hovered.color,space).map(v=>v.toFixed(3)).join(' · ')}</span>
+            <small>{hovered.color.source}</small>
+          </div>}
+          <p className="color-atlas-hint">Drag to rotate · hover a point to inspect</p>
         </div>
         <aside className="color-atlas-sidebar">
           <p className="eyebrow">{visible.length} named points</p>
