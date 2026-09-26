@@ -31,7 +31,7 @@ The site uses one black-and-gold theme family with explicit light and dark modes
 
 ## Color Atlas
 
-`ColorAtlas.tsx` owns the current projected 3D renderer and color-space transforms. Named records are loaded from `public/data/color-names.json`; the source value remains canonical and alternate coordinates are derived at runtime. Current selectable spaces are RGB, HSL, XYZ, CIELAB, LCH, OKLab, and OKLCH.
+`ColorAtlas.tsx` owns the current projected 3D renderer and color-space transforms. Named records are loaded from `public/data/color-names/manifest.json` and its source-specific shards (plus the original CSS seed); the source value remains canonical and alternate coordinates are derived at runtime. Asset URLs use Vite's `BASE_URL` so GitHub Pages subpath deployment works. Current selectable spaces are RGB, HSL, XYZ, CIELAB, LCH, OKLab, and OKLCH.
 
 Pointer dragging rotates the projected space. Projected point positions are retained for hover hit-testing; the tooltip reports name, swatch, hex, active-space coordinates, and source. The sidebar provides the non-pointer path for selection and inspection.
 
