@@ -832,3 +832,11 @@ select:focus-visible {
 .color-atlas-hint { position:absolute; left:16px; bottom:10px; margin:0; padding:5px 8px; border:1px solid var(--color-border); background:var(--color-overlay); color:var(--color-text-secondary); font-size:.75rem; pointer-events:none; }
 
 .color-atlas-question { margin:10px 0 0; color:var(--color-text-secondary); font-size:.86rem; font-style:italic; }
+
+.color-atlas-tabs { flex-wrap:wrap; }
+.color-tooltip { position:absolute; z-index:4; display:grid; grid-template-columns:18px auto; gap:2px 8px; min-width:190px; max-width:260px; padding:10px 12px; border:1px solid var(--color-border); border-radius:6px; background:var(--color-overlay); box-shadow:var(--shadow-panel); pointer-events:none; backdrop-filter:blur(10px); }
+.color-tooltip-swatch { grid-row:1 / span 2; width:18px; height:18px; margin-top:2px; border:1px solid var(--color-border); border-radius:50%; }
+.color-tooltip code,.color-tooltip span,.color-tooltip small { grid-column:2; }
+.color-tooltip code { color:var(--color-text-secondary); font-size:.78rem; }
+.color-tooltip span { margin-top:5px; font-size:.75rem; }
+.color-tooltip small { color:var(--color-text-secondary); font-size:.7rem; }
