@@ -8,8 +8,9 @@ A React + Vite single-page app hosting a couple of standalone viewer pages.
 
 - [`/star-wars-musical-themes`](https://tennisgazelle.github.io/static-viewers/star-wars-musical-themes)
 - [`/oppenheimer-plot-map`](https://tennisgazelle.github.io/static-viewers/oppenheimer-plot-map)
+- [`/when-puns-become-real`](https://tennisgazelle.github.io/static-viewers/when-puns-become-real)
 
-The home page (`/`) just lists links to both.
+The home page (`/`) lists links to the viewers.
 
 ## Star Wars musical-theme data
 

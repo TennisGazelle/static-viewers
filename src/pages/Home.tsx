@@ -18,6 +18,10 @@ function Home() {
           <span>Oppenheimer plot map</span>
           <span aria-hidden="true">&rarr;</span>
         </Link>
+        <Link to="/when-puns-become-real">
+          <span>When puns become real</span>
+          <span aria-hidden="true">&rarr;</span>
+        </Link>
         <a href="https://www.whatsinmycookiejar.com" target="_blank" rel="noreferrer">
           <span>What's in My Cookie Jar?</span>
           <span aria-hidden="true">&rarr;</span>
