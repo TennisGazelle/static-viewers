@@ -4,6 +4,7 @@ import ThemeToggle from './components/ThemeToggle'
 import Home from './pages/Home'
 import OppenheimerPlotMap from './pages/OppenheimerPlotMap'
 import StarWarsMusicalThemes from './pages/StarWarsMusicalThemes'
+import WhenPunsBecomeReal from './pages/WhenPunsBecomeReal'
 import { applyTheme, getInitialTheme, type ThemeMode } from './theme'
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           path="/oppenheimer-plot-map"
           element={<OppenheimerPlotMap theme={theme} />}
         />
+        <Route path="/when-puns-become-real" element={<WhenPunsBecomeReal />} />
       </Routes>
     </>
   )
