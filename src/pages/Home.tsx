@@ -10,6 +10,10 @@ function Home() {
       </header>
 
       <nav className="viewer-list" aria-label="Viewers and related projects">
+        <Link to="/color-atlas">
+          <span>Color atlas</span>
+          <span aria-hidden="true">&rarr;</span>
+        </Link>
         <Link to="/star-wars-musical-themes">
           <span>Star Wars musical themes</span>
           <span aria-hidden="true">&rarr;</span>
