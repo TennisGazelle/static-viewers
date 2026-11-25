@@ -16,6 +16,7 @@
 | [`public/data/color-names.json`](../../public/data/color-names.json) | Provenance-tagged named color records | Adding licensed/public color-name sources; follow [`color-atlas-vision.md`](./color-atlas-vision.md) source policy |
 | [`src/pages/StarWarsMusicalThemes.tsx`](../../src/pages/StarWarsMusicalThemes.tsx) | Star Wars viewer page | That page's layout/copy |
 | [`src/pages/OppenheimerPlotMap.tsx`](../../src/pages/OppenheimerPlotMap.tsx) | Oppenheimer viewer page | That page's layout/copy |
+| [`src/pages/WhenPunsBecomeReal.tsx`](../../src/pages/WhenPunsBecomeReal.tsx) | Short reference page for joke-derived terminology | That page's content/table |
 | [`src/components/StarWarsGraph.tsx`](../../src/components/StarWarsGraph.tsx) | Observable-style D3 force graph, controls, and coordinated catalogue tables | Graph layout, interactions, visual type mappings, table columns, or loaded data shards |
 | [`public/data/star-wars-*.json`](../../public/data) (12 shards — see `DATA_FILES` in `StarWarsGraph.tsx`) | Graph topology and catalogue-derived records, fetched and merged at runtime | Adding/editing nodes, links, census counts, or confidence values. For *what* to add/how it maps to the source catalogue, see [`STAR_WARS_DATA_MAPPING.md`](../../STAR_WARS_DATA_MAPPING.md) |
 | [`src/index.css`](../../src/index.css) | Black-and-gold theme tokens, global base styles, and shared `.viewer-page` shell | Site-wide styles or viewer presentation |

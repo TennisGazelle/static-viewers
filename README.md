@@ -9,6 +9,7 @@ A React + Vite single-page app hosting standalone visual explainers and explorat
 - [`/color-atlas`](https://tennisgazelle.github.io/static-viewers/color-atlas) — named colors across mathematical color spaces
 - [`/star-wars-musical-themes`](https://tennisgazelle.github.io/static-viewers/star-wars-musical-themes)
 - [`/oppenheimer-plot-map`](https://tennisgazelle.github.io/static-viewers/oppenheimer-plot-map)
+- [`/when-puns-become-real`](https://tennisgazelle.github.io/static-viewers/when-puns-become-real)
 
 The home page (`/`) is the gallery/index for all viewers.
 

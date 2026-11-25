@@ -128,6 +128,128 @@ select:focus-visible {
   font-size: 1.08rem;
 }
 
+.terms-page {
+  min-height: 100svh;
+  padding: clamp(28px, 7vw, 84px) 20px 96px;
+}
+
+.terms-shell {
+  width: min(1080px, 100%);
+  margin: 0 auto;
+}
+
+.terms-header {
+  max-width: 720px;
+  margin-bottom: 44px;
+}
+
+.terms-header h1 {
+  max-width: 700px;
+  margin: 0;
+  font-size: clamp(2.8rem, 8vw, 6.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.terms-header > p:last-child {
+  max-width: 610px;
+  margin: 20px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+}
+
+.terms-table-wrap {
+  overflow-x: auto;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.terms-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+.terms-table th,
+.terms-table td {
+  padding: 18px 14px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.terms-table thead th {
+  color: var(--color-text-secondary);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.terms-table tbody tr:last-child th,
+.terms-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.terms-table tbody th {
+  width: 18%;
+  font-size: 1.08rem;
+}
+
+.terms-table td {
+  color: var(--color-text-secondary);
+}
+
+.terms-source {
+  display: block;
+  margin-top: 6px;
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+@media (max-width: 700px) {
+  .terms-table {
+    min-width: 0;
+  }
+
+  .terms-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .terms-table tr,
+  .terms-table th,
+  .terms-table td {
+    display: block;
+  }
+
+  .terms-table tbody tr {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .terms-table tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .terms-table tbody th,
+  .terms-table td {
+    width: auto;
+    padding: 4px 0;
+    border: 0;
+  }
+
+  .terms-table td::before {
+    content: attr(data-label) ': ';
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+}
+
 .viewer-list {
   border-top: 1px solid var(--color-border);
 }
