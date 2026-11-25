@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import ThemeToggle from './components/ThemeToggle'
 import Home from './pages/Home'
 import OppenheimerPlotMap from './pages/OppenheimerPlotMap'
+import ColorAtlasPage from './pages/ColorAtlasPage'
 import StarWarsMusicalThemes from './pages/StarWarsMusicalThemes'
 import { applyTheme, getInitialTheme, type ThemeMode } from './theme'
 
@@ -18,6 +19,7 @@ function App() {
       <ThemeToggle mode={theme} onChange={setTheme} />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/color-atlas" element={<ColorAtlasPage />} />
         <Route
           path="/star-wars-musical-themes"
           element={<StarWarsMusicalThemes />}

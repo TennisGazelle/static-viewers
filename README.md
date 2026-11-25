@@ -1,15 +1,18 @@
 # static-viewers
 
-A React + Vite single-page app hosting a couple of standalone viewer pages.
+A React + Vite single-page app hosting standalone visual explainers and exploratory viewers.
 
 **Live site:** https://tennisgazelle.github.io/static-viewers/
 
 ## Pages
 
+- [`/color-atlas`](https://tennisgazelle.github.io/static-viewers/color-atlas) — named colors across mathematical color spaces
 - [`/star-wars-musical-themes`](https://tennisgazelle.github.io/static-viewers/star-wars-musical-themes)
 - [`/oppenheimer-plot-map`](https://tennisgazelle.github.io/static-viewers/oppenheimer-plot-map)
 
-The home page (`/`) just lists links to both.
+The home page (`/`) is the gallery/index for all viewers.
+
+Project intent is indexed in [`docs/ai/viewer-visions.md`](./docs/ai/viewer-visions.md). Color Atlas has a dedicated sourcing and product vision in [`docs/ai/color-atlas-vision.md`](./docs/ai/color-atlas-vision.md).
 
 ## Star Wars musical-theme data
 

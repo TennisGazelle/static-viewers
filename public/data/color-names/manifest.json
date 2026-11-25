@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": "css-color-4-seed",
+      "label": "CSS Color 4 seed",
+      "files": [
+        "../color-names.json"
+      ],
+      "license": "W3C specification data / seed set",
+      "records": 12
+    },
+    {
+      "id": "color-name-list",
+      "label": "Color Name List",
+      "files": [
+        "color-name-list-01.json",
+        "color-name-list-02.json",
+        "color-name-list-03.json",
+        "color-name-list-04.json",
+        "color-name-list-05.json",
+        "color-name-list-06.json",
+        "color-name-list-07.json",
+        "color-name-list-08.json"
+      ],
+      "license": "MIT",
+      "records": 31918,
+      "attribution": "meodai/color-names"
+    },
+    {
+      "id": "xkcd-color-survey",
+      "label": "XKCD Color Survey",
+      "files": [
+        "xkcd.json"
+      ],
+      "license": "Bundled via MIT-licensed meodai/color-name-lists dataset",
+      "records": 949,
+      "attribution": "XKCD color survey / meodai color-name-lists"
+    }
+  ]
+}

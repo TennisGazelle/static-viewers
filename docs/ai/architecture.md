@@ -11,6 +11,9 @@
 | [`src/theme.ts`](../../src/theme.ts) | Light/dark preference initialization, application, and persistence | Changing theme behavior or storage |
 | [`src/components/ThemeToggle.tsx`](../../src/components/ThemeToggle.tsx) | Persistent light/dark toggle | Changing the theme control's behavior or label |
 | [`src/pages/Home.tsx`](../../src/pages/Home.tsx) | Landing page; links to every viewer page | Adding a new viewer page (link it here too) |
+| [`src/pages/ColorAtlasPage.tsx`](../../src/pages/ColorAtlasPage.tsx) | Named-color space viewer shell | Color Atlas layout/copy |
+| [`src/components/ColorAtlas.tsx`](../../src/components/ColorAtlas.tsx) | Color-space visualization, filtering, and inspection | Color Atlas rendering/interactions |
+| [`public/data/color-names.json`](../../public/data/color-names.json) | Provenance-tagged named color records | Adding licensed/public color-name sources; follow [`color-atlas-vision.md`](./color-atlas-vision.md) source policy |
 | [`src/pages/StarWarsMusicalThemes.tsx`](../../src/pages/StarWarsMusicalThemes.tsx) | Star Wars viewer page | That page's layout/copy |
 | [`src/pages/OppenheimerPlotMap.tsx`](../../src/pages/OppenheimerPlotMap.tsx) | Oppenheimer viewer page | That page's layout/copy |
 | [`src/components/StarWarsGraph.tsx`](../../src/components/StarWarsGraph.tsx) | Observable-style D3 force graph, controls, and coordinated catalogue tables | Graph layout, interactions, visual type mappings, table columns, or loaded data shards |
@@ -25,6 +28,14 @@ Routes are `<Route path=".." element={<Page />} />` entries in `src/App.tsx`, re
 ## Theme
 
 The site uses one black-and-gold theme family with explicit light and dark modes. `App.tsx` owns the mode so the toggle remains available across routes; `src/theme.ts` initializes it from local storage or the operating-system preference and applies `data-theme` to the root element. Shared semantic CSS tokens in `src/index.css` style the home page and both viewer shells. Viewer-specific colors are reserved for data categories and timeline branches, where color carries meaning.
+
+## Color Atlas
+
+`ColorAtlas.tsx` owns the current projected 3D renderer and color-space transforms. Named records are loaded from `public/data/color-names/manifest.json` and its source-specific shards (plus the original CSS seed); the source value remains canonical and alternate coordinates are derived at runtime. Asset URLs use Vite's `BASE_URL` so GitHub Pages subpath deployment works. Current selectable spaces are RGB, HSL, XYZ, CIELAB, LCH, OKLab, and OKLCH.
+
+Pointer dragging rotates the projected space. Projected point positions are retained for hover hit-testing; the tooltip reports name, swatch, hex, active-space coordinates, and source. The sidebar provides the non-pointer path for selection and inspection.
+
+The current canvas renderer is a framework, not the final geometry. As the atlas grows, cylindrical/polar spaces should receive appropriate geometry and dense point clouds may require WebGL/WebGPU rendering. Data-source and licensing decisions belong in [`color-atlas-vision.md`](./color-atlas-vision.md), not implicit code comments.
 
 ## Graphs
 
